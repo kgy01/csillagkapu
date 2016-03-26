@@ -8,28 +8,24 @@ public class ZPM extends ItemObject {
 	
 	boolean hit(Bullet bul){
 		beginFunction();
-		endFunction("false");
-		return false;
+		return ret(false);
 	}
 	
 	@Override
 	boolean place(ItemObject object){
 		beginFunction();
-		endFunction("false");
-		return false;
+		return ret(false);
 	}
 	
 	@Override
 	boolean pick(Colonel col){
 		beginFunction();
-		endFunction("true");
-		return true;
+		return ret(true);
 	}
 	
 	@Override
 	boolean stepIn(Colonel col){
 		beginFunction();
-		endFunction("false");
-		return false;
+		return ret(false);
 	}
 }
