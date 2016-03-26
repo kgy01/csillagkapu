@@ -1,8 +1,11 @@
 package malmo.csillagkapu;
 
-/**
- * Created by Győző on 2016. 03. 26..
- */
+import malmo.csillagkapu.gameobject.Colonel;
+import malmo.csillagkapu.gameobject.Field;
+import malmo.csillagkapu.util.Coordinates;
+import malmo.csillagkapu.util.Logger;
+import malmo.csillagkapu.util.PortalColor;
+
 public class Engine {
 	private Colonel colonel;
 	private Field fields[][];
@@ -12,14 +15,14 @@ public class Engine {
 	
 	public void init() {
 		// Belepo loggolas:
-		beginFunction();
+		Logger.beginFunction();
 		
 		Loader loader = new Loader();
 		fields = loader.loadGame("palya.txt");
 		colonel = loader.getColonel();
 		
 		// Visszatero loggolas
-		endFunction("");
+        Logger.endFunction("");
 	}
 	
 	public Field getField(Coordinates co) {
@@ -28,12 +31,12 @@ public class Engine {
 	}
 	
 	public void gameOver() {
-		beginFunction();
-		endFunction("");
+        Logger.beginFunction();
+        Logger.endFunction("");
 	}
 	
-	public void shoot(Color c) {
-		beginFunction();
-		endFunction("");
+	public void shoot(PortalColor c) {
+        Logger.beginFunction();
+        Logger.endFunction("");
 	}
 }
