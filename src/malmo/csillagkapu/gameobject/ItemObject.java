@@ -1,7 +1,20 @@
 package malmo.csillagkapu.gameobject;
 
 /**
- * Created by Győző on 2016. 03. 26..
+ * Created by Komporály Győző on 2016. 03. 26..
  */
-public class ItemObject {
+public abstract class ItemObject {
+    public abstract boolean hit(Bullet bul);
+
+    public boolean place(ItemObject object){
+        return false;
+    }
+
+    public boolean pick(Colonel col){
+        return true;
+    }
+
+    public boolean stepIn(Colonel col){
+        return true;
+    }
 }
