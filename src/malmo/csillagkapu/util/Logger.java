@@ -1,7 +1,9 @@
 ﻿package malmo.csillagkapu.util;
 
+import java.util.Scanner;
+
 /**
- * Created by Győző on 2016. 03. 26..
+ * Created by MR.ESSIG on 3/26/2016.
  */
 public class Logger{
     private int numOfSpace;
@@ -41,10 +43,10 @@ public class Logger{
             extras += o;
         }
         log("-->[" + className + "]:" + element.getMethodName() + "(" + extras + ")");
-        getInstanceOf().numOfSpace += 2;
+        getInstanceOf().numOfSpace += 3;
     }
     public static void  endFunction(String text){
-        getInstanceOf().numOfSpace -= 2;
+        getInstanceOf().numOfSpace -= 3;
         if(getInstanceOf().numOfSpace < 0){
             getInstanceOf().numOfSpace = 0;
             throw new RuntimeException("Van egy olyan sanda gyanum hogy kihagytál egy beginFunctiont()");
@@ -56,5 +58,17 @@ public class Logger{
     {
         endFunction(obj.toString());
         return obj;
+    }
+
+    public static boolean getDecision(String t, String f) {
+        Scanner sc = new Scanner(System.in);
+        String line = sc.nextLine();
+        while (!(line.equals(t) || line.equals(f))) {
+            line = sc.nextLine();
+        }
+        if(line.equals(t)){
+            return true;
+        }
+        return false;
     }
 }
