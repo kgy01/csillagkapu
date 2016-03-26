@@ -6,19 +6,19 @@ public class Box extends ItemObject {
 	
 	public Box(){ };
 	
-	//@Override
+	@Override
 	public boolean hit(Bullet bul){
 		beginFunction();
 		return ret(false);
 	}
 	
-	//@Override
+	@Override
 	public boolean place(ItemObject object){
 		beginFunction();
 		return ret(false);
 	}
 	
-	//@Override
+	@Override
 	public boolean pick(Colonel col){
 		beginFunction();
 		if(col.backpack.isEmpty()){
@@ -29,7 +29,7 @@ public class Box extends ItemObject {
 		}
 	}
 	
-	//@Override
+	@Override
 	public boolean stepIn(Colonel col){
 		beginFunction();
 		return ret(false);
