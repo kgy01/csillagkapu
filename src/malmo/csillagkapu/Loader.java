@@ -3,7 +3,7 @@ import static malmo.csillagkapu.util.Logger.*;
 import malmo.csillagkapu.gameobject.*;
 
 /**
- * Created by Győző on 2016. 03. 26..
+ * Created by Mosonyi Máté on 2016. 03. 26..
  */
 public class Loader {
 	private Colonel colonel;
