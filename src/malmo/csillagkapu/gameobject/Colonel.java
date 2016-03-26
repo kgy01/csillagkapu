@@ -1,10 +1,7 @@
 package malmo.csillagkapu.gameobject;
 
 import malmo.csillagkapu.Engine;
-import malmo.csillagkapu.util.Coordinates;
-import malmo.csillagkapu.util.Direction;
-import malmo.csillagkapu.util.Logger;
-import malmo.csillagkapu.util.PortalColor;
+import malmo.csillagkapu.util.*;
 
 import java.util.List;
 
@@ -18,9 +15,9 @@ public class Colonel {
 
     private List<ItemObject> backpack;
 
-    public boolean canShoot() {
+    public boolean isBackpackEmpty() {
         Logger.log("Tud lőni az ezredes?");
-        return Logger.getDecision("Igen","Nem");
+        return Logger.getDecision("Igen", "Nem");
     }
 
     public Coordinates getPosition() {
@@ -39,15 +36,16 @@ public class Colonel {
         this.direction = direction;
     }
 
-    public void step() {
+    public void step() throws ColonelIsDeadException {
         Logger.beginFunction();
         Field field = engine.getField(position.nextFieldCoords(direction));
         field.stepIn(this);
         Logger.endFunction("");
     }
+
     public void shoot(PortalColor color) {
         Logger.beginFunction();
-        if (canShoot()) {
+        if (isBackpackEmpty()) {
             Bullet bullet = new Bullet(position, direction, color, engine);
             bullet.start();
         }
@@ -66,5 +64,11 @@ public class Colonel {
         Field field = engine.getField(position.nextFieldCoords(direction));
         field.pick(this);
         Logger.endFunction("");
+    }
+
+    public void die() throws ColonelIsDeadException {
+        Logger.beginFunction();
+        Logger.endFunction("");
+        throw new ColonelIsDeadException();
     }
 }

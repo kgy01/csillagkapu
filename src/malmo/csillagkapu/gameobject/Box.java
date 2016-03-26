@@ -30,7 +30,7 @@ public class Box extends ItemObject {
 	@Override
 	public boolean pick(Colonel col){
 		beginFunction();
-		if(col.backpack.isEmpty()){
+		if(col.isBackpackEmpty()){
 			return ret(true);
 		}
 		else{

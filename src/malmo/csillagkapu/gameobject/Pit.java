@@ -1,5 +1,7 @@
 package malmo.csillagkapu.gameobject;
 
+import malmo.csillagkapu.util.ColonelIsDeadException;
+
 import static malmo.csillagkapu.util.Logger.*;
 
 /**
@@ -27,7 +29,7 @@ public class Pit extends LandObject {
 	
 	// Jelezzuk, hogy ra lehet lepni es megoljuk az ezredest
 	@Override
-	public boolean stepIn(Colonel col){
+	public boolean stepIn(Colonel col) throws ColonelIsDeadException{
 		beginFunction();
 		col.die();
 		return ret(true);

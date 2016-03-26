@@ -5,8 +5,8 @@ import static malmo.csillagkapu.util.Logger.*;
 public class SpecialWall extends Wall{
 	
 	@Override
-	boolean hit (Bullet bul){		
+	public boolean hit(Bullet bul){
 		beginFunction();
-		return Logger.ret(true);		
+		return ret(true);
 	}
 }

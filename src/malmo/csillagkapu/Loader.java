@@ -1,6 +1,9 @@
 package malmo.csillagkapu;
 import static malmo.csillagkapu.util.Logger.*;
 import malmo.csillagkapu.gameobject.*;
+import malmo.csillagkapu.util.Coordinates;
+import malmo.csillagkapu.util.Direction;
+import malmo.csillagkapu.util.PortalColor;
 
 /**
  * Created by Mosonyi Máté on 2016. 03. 26..
@@ -13,7 +16,7 @@ public class Loader {
 	
 	public Field[][] loadGame(String filename) {
 		beginFunction();
-		Field[][] tests;
+		Field[][] tests = new Field[1][10];
 		// Üres mező
 		tests[0][1] = new Field(null, null);
 		// Doboz van a mezőn
@@ -27,7 +30,7 @@ public class Loader {
 		// Ajtó van a mezőn
 		tests[0][6] = new Field(new Door(), null);
 		// Portál van a mezőn
-		tests[0][7] = new Field(null, new Portal());
+		tests[0][7] = new Field(null, new Portal(new Coordinates(0,7), PortalColor.YELLOW, Direction.NORTH, null));
 		// Mérleg van a mezőn
 		tests[0][8] = new Field(new Scale(), null);
 		

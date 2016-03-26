@@ -7,7 +7,7 @@ import malmo.csillagkapu.util.Logger;
 import malmo.csillagkapu.util.PortalColor;
 
 /**
- * Created by Mosonyi Máté on 2016. 03. 26..
+ * Created by Mosonyi MÃ¡tÃ© on 2016. 03. 26..
  */
 
 public class Engine {
@@ -31,7 +31,7 @@ public class Engine {
 	
 	public Field getField(Coordinates co) {
 		Logger.beginFunction();
-		return ret(fields[co.getX()][co.getY()]);
+		return Logger.ret(fields[co.getX()][co.getY()]);
 	}
 	
 	public void gameOver() {

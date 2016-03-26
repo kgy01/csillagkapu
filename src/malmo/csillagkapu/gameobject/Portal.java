@@ -1,10 +1,7 @@
 package malmo.csillagkapu.gameobject;
 
 import malmo.csillagkapu.Engine;
-import malmo.csillagkapu.util.Coordinates;
-import malmo.csillagkapu.util.Direction;
-import malmo.csillagkapu.util.Logger;
-import malmo.csillagkapu.util.PortalColor;
+import malmo.csillagkapu.util.*;
 
 /**
  * Created by Komporály Győző on 2016. 03. 26..
@@ -65,7 +62,7 @@ public class Portal extends ItemObject {
         Field other = null;
         Logger.log("Létezik a másik színű Csillagkapu?(Igen/Nem)");
         if (Logger.getDecision("Igen","Nem")) {
-            other = new Field();
+            other = new Field(null,null);
         }
         return Logger.ret(other);
     }
@@ -75,7 +72,7 @@ public class Portal extends ItemObject {
     }
 
     @Override
-    public boolean stepIn(Colonel col){
+    public boolean stepIn(Colonel col) throws ColonelIsDeadException{
         Logger.beginFunction();
         if (Direction.opposite(col.getDirection()) == facingDirection) {
             Field target = getOtherField();

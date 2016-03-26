@@ -1,10 +1,12 @@
 package malmo.csillagkapu.gameobject;
 
+import malmo.csillagkapu.util.ColonelIsDeadException;
+
 /**
  * Created by Komporály Győző on 2016. 03. 26..
  */
 public abstract class LandObject {
-    public boolean stepIn(Colonel col){
+    public boolean stepIn(Colonel col) throws ColonelIsDeadException {
         return true;
     }
 

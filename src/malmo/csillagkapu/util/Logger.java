@@ -1,4 +1,4 @@
-﻿package malmo.csillagkapu.util;
+package malmo.csillagkapu.util;
 
 import java.util.Scanner;
 

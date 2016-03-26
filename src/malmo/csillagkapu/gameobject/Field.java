@@ -1,5 +1,6 @@
 package malmo.csillagkapu.gameobject;
 import malmo.csillagkapu.gameobject.*;
+import malmo.csillagkapu.util.ColonelIsDeadException;
 
 import static malmo.csillagkapu.util.Logger.*;
 
@@ -15,7 +16,7 @@ public class Field {
 		itemobject = _item;
 	}
 	
-	public boolean stepIn(Colonel col) {
+	public boolean stepIn(Colonel col) throws ColonelIsDeadException{
 		beginFunction();
 		if (itemobject != null) {
 			return ret(itemobject.stepIn(col));
@@ -30,7 +31,7 @@ public class Field {
 		}
 	}
 	
-	public boolean stepOut() {
+	public boolean stepOut(Colonel col) {
 		if (landobject != null) {
 				return ret(landobject.stepOut(col));
 			}
@@ -74,6 +75,7 @@ public class Field {
 		if (itemobject == null) {
 			return ret(landobject.openPortal(port));
 		}
+		return false;
 	}
 	
 	public boolean hit(Bullet bul) {

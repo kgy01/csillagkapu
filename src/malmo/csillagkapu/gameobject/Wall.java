@@ -3,26 +3,26 @@ package malmo.csillagkapu.gameobject;
 import static malmo.csillagkapu.util.Logger.*;
 
 public class Wall extends LandObject{
-//A Pick(), OpenPortal(), Place() függvények nem változtak, ezért ezek nem kerültek be az osztályba
+//A Pick(), OpenPortal(), Place() fÃ¼ggvÃ©nyek nem vÃ¡ltoztak, ezÃ©rt ezek nem kerÃ¼ltek be az osztÃ¡lyba
 	
-	//False-al térünk vissza, ugyanis a kapitány nem léphet bele a falba
+	//False-al tÃ©rÃ¼nk vissza, ugyanis a kapitÃ¡ny nem lÃ©phet bele a falba
 	@Override
-	boolean stepIn (Colonel col){		
+	public boolean stepIn (Colonel col){
 		beginFunction();
-		return Logger.ret(false);		
+		return ret(false);
 	}
 
-	//False-al térünk vissza, ugyanis a kapitány nem léphet ki a falból(már belépni sem léphetett be)	
+	//False-al tÃ©rÃ¼nk vissza, ugyanis akapitÃ¡ny nem lÃ©phet ki a falbÃ³l(mÃ¡r belÃ©pni sem lÃ©phetett be)
 	@Override
-	boolean stepOut (Colonel col){		
+	public boolean stepOut (Colonel col){
 		beginFunction();
-		return Logger.ret(false);		
+		return ret(false);
 	}
 	
-	//False-al térünk vissza, ugyanis a nem lehet rajta keresztül lõni
+	//False-al tÃ©rÃ¼nk vissza, ugyanis a nem lehet rajta keresztÃ¼l lÅ‘ni
 	@Override
-	boolean hit (Bullet bul){		
+	public boolean hit (Bullet bul){
 		beginFunction();
-		return Logger.ret(false);		
+		return ret(false);
 	}
 }
