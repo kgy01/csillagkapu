@@ -57,13 +57,4 @@ public class Logger{
         endFunction(obj.toString());
         return obj;
     }
-
-
-    public static void main(String [ ] args)
-    {
-        Door door = new Door();
-        Scale scale = new Scale(door);
-        door.close();
-        door.open();
-    }
 }
