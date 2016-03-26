@@ -6,6 +6,10 @@ import malmo.csillagkapu.util.Coordinates;
 import malmo.csillagkapu.util.Logger;
 import malmo.csillagkapu.util.PortalColor;
 
+/**
+ * Created by Mosonyi Máté on 2016. 03. 26..
+ */
+
 public class Engine {
 	private Colonel colonel;
 	private Field[][] fields;
