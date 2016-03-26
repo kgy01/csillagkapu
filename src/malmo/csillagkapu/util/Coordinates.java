@@ -47,13 +47,13 @@ public class Coordinates {
     public Coordinates nextFieldCoords(Direction dir) {
         switch(dir) {
             case NORTH:
-                return new Coordinates(position.getX(),position.getY()-1);
+                return new Coordinates(x,y-1);
             case SOUTH:
-                return new Coordinates(position.getX(),position.getY()+1);
+                return new Coordinates(x,y+1);
             case EAST:
-                return new Coordinates(position.getX()+1,position.getY());
+                return new Coordinates(x+1,y);
             default:
-                return new Coordinates(position.getX()-1,position.getY());
+                return new Coordinates(x-1,y);
         }
     }
 }
