@@ -2,7 +2,7 @@ package malmo.csillagkapu.gameobject;
 
 import static malmo.csillagkapu.util.Logger.*;
 
-class Wall extends LandObject{
+public class Wall extends LandObject{
 //A Pick(), OpenPortal(), Place() függvények nem változtak, ezért ezek nem kerültek be az osztályba
 
 	

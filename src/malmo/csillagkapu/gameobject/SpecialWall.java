@@ -2,7 +2,7 @@ package malmo.csillagkapu.gameobject;
 
 import static malmo.csillagkapu.util.Logger.*;
 
-class SpecialWall extends Wall{
+public class SpecialWall extends Wall{
 
 	
 	@Override
