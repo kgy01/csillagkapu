@@ -8,7 +8,7 @@ import malmo.csillagkapu.util.PortalColor;
 
 public class Engine {
 	private Colonel colonel;
-	private Field fields[][];
+	private Field[][] fields;
 	
 	public Engine() {
 	}
