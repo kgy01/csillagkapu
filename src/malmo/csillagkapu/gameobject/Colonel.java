@@ -6,6 +6,8 @@ import malmo.csillagkapu.util.Direction;
 import malmo.csillagkapu.util.Logger;
 import malmo.csillagkapu.util.PortalColor;
 
+import java.util.List;
+
 /**
  * Created by Komporály Győző on 2016. 03. 26..
  */
@@ -13,6 +15,13 @@ public class Colonel {
     private Coordinates position;
     private Direction direction;
     private Engine engine;
+
+    private List<ItemObject> backpack;
+
+    public boolean canShoot() {
+        Logger.log("Tud lőni az ezredes?");
+        return Logger.getDecision("Igen","Nem");
+    }
 
     public Coordinates getPosition() {
         return position;
@@ -38,13 +47,17 @@ public class Colonel {
     }
     public void shoot(PortalColor color) {
         Logger.beginFunction();
-        Bullet bullet = new Bullet(position,direction, color);
-        bullet.start();
+        if (canShoot()) {
+            Bullet bullet = new Bullet(position, direction, color, engine);
+            bullet.start();
+        }
         Logger.endFunction("");
     }
 
     public void place(ItemObject item) {
         Logger.beginFunction();
+        Field field = engine.getField(position.nextFieldCoords(direction));
+        field.place(item);
         Logger.endFunction("");
     }
 

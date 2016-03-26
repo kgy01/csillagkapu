@@ -15,10 +15,11 @@ public class Bullet implements Runnable{
     PortalColor color;
     Engine engine;
 
-    public Bullet(Coordinates position, Direction direction, PortalColor color) {
+    public Bullet(Coordinates position, Direction direction, PortalColor color, Engine engine) {
         this.position = position;
         this.direction = direction;
         this.color = color;
+        this.engine = engine;
     }
 
     public PortalColor getColor() {
@@ -30,24 +31,26 @@ public class Bullet implements Runnable{
         position = position.nextFieldCoords(direction);
         Field next = engine.getField(position);
         if (next.hit(this)) {
-            Portal portal = new Portal(position, color, direction);
+            Portal portal = new Portal(position, color, direction, engine);
             if (next.openPortal(portal)) {
                 Portal.register(portal);
             }
+            return Logger.ret(true);
+        } else {
+            return Logger.ret(false);
         }
-        Logger.endFunction("");
     }
 
     public void start() {
         Logger.beginFunction();
         run();
-        Logger.endFunction();
+        Logger.endFunction("");
     }
 
     @Override
     public void run() {
         boolean lastStep = false;
-        while(lastStep == false) {
+        while(!lastStep) {
             lastStep = step();
         }
     }

@@ -6,5 +6,18 @@ package malmo.csillagkapu.util;
  * Egy egyszerű enum az ezredes és lövedekek irányának megadásához.
  */
 public enum Direction {
-    NORTH, EAST, WEST, SOUTH
+    NORTH, EAST, WEST, SOUTH;
+
+    public static Direction opposite(Direction facingDirection) {
+        switch(facingDirection) {
+            case NORTH:
+                return SOUTH;
+            case EAST:
+                return WEST;
+            case WEST:
+                return EAST;
+            default:
+                return NORTH;
+        }
+    }
 }
