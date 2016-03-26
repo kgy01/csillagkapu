@@ -34,7 +34,7 @@ public class ZPM extends ItemObject {
 	@Override
 	public boolean pick(Colonel col){
 		beginFunction();
-		zpmCount++;
+		zpmCount--;
 		return ret(true);
 	}
 	
@@ -42,7 +42,7 @@ public class ZPM extends ItemObject {
 	@Override
 	public boolean stepIn(Colonel col){
 		beginFunction();
-		zpmCount++;
+		zpmCount--;
 		return ret(false);
 	}
 }
