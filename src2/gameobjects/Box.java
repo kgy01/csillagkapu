@@ -25,18 +25,24 @@ public class Box extends ItemObject {
 	
 	// Ha ures az ezredes hatizsakja, felvesszuk a dobozt
 	@Override
-	public boolean pick(Colonel col){
-		Logger.inFunction("-->[Box:]pick(Colonel)");
-		boolean ret = col.isBackpackEmpty();
-		Logger.outFunction("<--[Box:]" + ret);
-		return ret;
+	public boolean pick(Player _player){
+		//Logger.inFunction("-->[Box:]pick(Colonel)");
+		return _player.pushBackpack(this);
 	}
 	
 	// False-al jelezzuk, hogy nem lehet a dobozt tartalmazo mezore lepni
 	@Override
-	public boolean stepIn(Colonel col){
-		Logger.inFunction("-->[Box:]stepIn(Colonel)");
-		Logger.outFunction("<--[Box:]false");
+	public boolean stepIn(Player _player){
 		return false;
+	}
+	
+	@Override
+	public String toString() {
+		return "&";
+	}
+	
+	@Override
+	public String toStringVerbose() {
+		return "Box";
 	}
 }

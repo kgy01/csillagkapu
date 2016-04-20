@@ -7,15 +7,15 @@ public class Wall extends LandObject{
 		
 		//False-al térünk vissza, ugyanis a kapitány nem léphet bele a falba
 		@Override
-		public boolean stepIn(Colonel col){
-			Logger.inFunction("-->[Wall:]stepIn(Colonel)");
-			Logger.outFunction("<--[Wall:]false");
+		public boolean stepIn(Player _player){
+			//Logger.inFunction("-->[Wall:]stepIn(Colonel)");
+			//Logger.outFunction("<--[Wall:]false");
 			return false;
 		}
 
 		//False-al térünk vissza, ugyanis akapitány nem léphet ki a falból(már belépni sem léphetett be)
 		@Override
-		public boolean stepOut(Colonel col){
+		public boolean stepOut(Player _player){
 			Logger.inFunction("-->[Wall:]stepOut(Colonel)");
 			Logger.outFunction("<--[Wall:]true");
 			return true;
@@ -34,5 +34,10 @@ public class Wall extends LandObject{
 			Logger.inFunction("-->[Wall:]place(ItemObject)");
 			Logger.outFunction("<--[Wall:]false");
 			return false;
+		}
+		
+		@Override
+		public String toString() {
+			return "#";
 		}
 	}

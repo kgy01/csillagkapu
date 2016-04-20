@@ -27,7 +27,7 @@ public class Scale extends LandObject {
      * @return true
      */
     @Override
-    public boolean stepIn(Colonel col) {
+    public boolean stepIn(Player _player) {
     	Logger.inFunction("-->[Scale:]stepIn(Colonel)");
         door.open();
         Logger.outFunction("<--[Scale:]true");
@@ -42,7 +42,7 @@ public class Scale extends LandObject {
      * @return true
      */
     @Override
-    public boolean stepOut(Colonel col) {
+    public boolean stepOut(Player _player) {
     	Logger.inFunction("-->[Wall:]stepIn()");
     	door.close();
     	Logger.outFunction("<--[Wall:]true");
@@ -71,7 +71,7 @@ public class Scale extends LandObject {
      * @return : true
      */
     @Override
-    public boolean pick(Colonel col) {
+    public boolean pick(Player _player) {
     	Logger.inFunction("-->[Wall:]pick(Colonel)");
     	door.close();
     	Logger.outFunction("<--[Wall:]true");

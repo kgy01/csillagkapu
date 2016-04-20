@@ -50,7 +50,7 @@ public class Portal extends ItemObject {
         Field other = null;
         Logger.log("[i/n] Létezik a másik színű Csillagkapu?");
         if (Logger.readKey() == 'i') {
-            other = new Field(null,null);
+            other = new Field(null,null, null);
         }
         Logger.outFunction("<--[Portal:]field");
         return other;
@@ -61,11 +61,11 @@ public class Portal extends ItemObject {
     }*/
 
     @Override
-    public boolean stepIn(Colonel col) {
+    public boolean stepIn(Player _player) {
     	Logger.inFunction("-->[Portal:]stepIn(Colonel)");
         Field target = getOtherField();
         if (target != null) {
-        	boolean ret = target.stepIn(col);
+        	boolean ret = target.stepIn(_player);
         	Logger.outFunction("<--[Portal:]" + ret);
             return ret;
         }

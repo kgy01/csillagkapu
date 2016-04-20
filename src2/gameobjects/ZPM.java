@@ -30,23 +30,24 @@ public class ZPM extends ItemObject {
 	
 	// ZPM felvetele (szamlalot csokkentjuk 1-el)
 	@Override
-	public boolean pick(Colonel col){
-		Logger.inFunction("-->[ZPM:]pick(Colonel)");
-		Logger.log("[i/n*] Utolsó felvehető ZMP?");
-		if (Logger.readKey() == 'i')
-			col.die();
-		Logger.outFunction("<--[ZPM:]true");
+	public boolean pick(Player _player){
+		if (_player.addZPM())
+			zpmCount--;
+		System.out.println("OK typ:ZPM");
 		return true;
 	}
 	
 	// ZPM-et tartalmazo mezore lepve felvesszuk a ZPM-et (szamlalot csokkentjuk 1-el)
 	@Override
-	public boolean stepIn(Colonel col){
-		Logger.inFunction("-->[ZPM:]stepIn(Colonel)");
-		Logger.log("[i/n*] Utolsó felvehető ZMP?");
-		if (Logger.readKey() == 'i')
-			col.die();
-		Logger.outFunction("<--[ZPM:]true");
+	public boolean stepIn(Player _player){
+		if (_player.addZPM())
+			zpmCount--;
+		System.out.println("ZPM added to " + _player.toStringVerbose());
 		return true;
+	}
+	
+	@Override
+	public String toString() {
+		return "$";
 	}
 }

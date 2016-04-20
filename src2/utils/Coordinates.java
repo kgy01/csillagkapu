@@ -36,4 +36,28 @@ public class Coordinates {
     public void setX(int x) {
         this.x = x;
     }
+    
+    // Egyenlõségvizsgálat
+    public boolean equals(Coordinates _ref) {
+    	boolean igaz = true;
+    	if (x != _ref.getX()) igaz = false;
+    	if (y != _ref.getY()) igaz = false;
+    	return igaz;
+    }
+    
+    @Override
+    public String toString() {
+    	return "(" + x + "," + y + ")";
+    }
+    
+    public String toStringVerbose() {
+    	if (x==0 && y==-1)
+    		return "up";
+    	else if (x==1 && y==0)
+    		return "right";
+    	else if (x==0 && y==1)
+    		return "down";
+    	else
+    		return "left";
+    }
 }

@@ -27,10 +27,15 @@ public class Pit extends LandObject {
 	
 	// Jelezzuk, hogy ra lehet lepni es megoljuk az ezredest
 	@Override
-	public boolean stepIn(Colonel col) {
-		Logger.inFunction("-->[Pit:]stepIn(Colonel)");
-		col.die();
-		Logger.outFunction("<--[Pit:]true");
+	public boolean stepIn(Player _player) {
+		//Logger.inFunction("-->[Pit:]stepIn(Colonel)");
+		_player.die();
+		//Logger.outFunction("<--[Pit:]true");
 		return true;
+	}
+	
+	@Override
+	public String toString() {
+		return "!";
 	}
 }

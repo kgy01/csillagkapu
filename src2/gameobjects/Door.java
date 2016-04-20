@@ -27,11 +27,8 @@ public class Door extends LandObject {
      * @return ha az ajtó nyitva van true, false, ha nincs nyitva.
      */
     @Override
-    public boolean stepIn(Colonel col) {
-    	Logger.inFunction("-->[Door:]stepIn(Colonel)");
-		boolean ret = isOpen();
-		Logger.outFunction("<--[Door:]" + ret);
-		return ret;
+    public boolean stepIn(Player _player) {
+		return isOpen;
     }
 
     /**

@@ -2,11 +2,11 @@ package gameobjects;
 
 
 public abstract class LandObject {
-    public boolean stepIn(Colonel col) {
+    public boolean stepIn(Player _player) {
         return true;
     }
 
-    public boolean stepOut(Colonel col){
+    public boolean stepOut(Player _player){
         return true;
     }
 
@@ -18,7 +18,7 @@ public abstract class LandObject {
         return false;
     }
 
-    public boolean pick(Colonel col){
+    public boolean pick(Player _player){
         return false;
     }
 

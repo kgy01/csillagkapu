@@ -3,84 +3,138 @@ package gameobjects;
 import utils.Logger;
 
 public class Field {
+	// Tereptárgy
 	private LandObject landobject;
+	// Mozgatható tárgy
 	private ItemObject itemobject;
+	private Player player;
 	
-	public Field(LandObject _land, ItemObject _item) {
+	public Field(LandObject _land, ItemObject _item, Player _player) {
 		landobject = _land;
 		itemobject = _item;
+		player = _player;
 	}
 	
-	public boolean stepIn(Colonel col){
-		Logger.inFunction("-->[Field:]stepIn(Colonel)");
-		if (itemobject != null) {
-			boolean ret = itemobject.stepIn(col);
-			Logger.outFunction("<--[Field:]" + ret);
-			return ret;
-		}
-		else {
-			if (landobject != null) {
-				boolean ret = landobject.stepIn(col);
-				Logger.outFunction("<--[Field:]" + ret);
-				return ret;
+	// Játékos a mezõre lép
+	public boolean stepIn(Player _player){
+		// Van-e másik játékos a mezõn?
+		if (player == null) {
+			// Ha van mozgatható objektum a mezõn, az engedi-e hogy rálépjen a játékos?
+			if (itemobject != null) {
+				boolean res = itemobject.stepIn(_player);
+				if (res)
+					itemobject = null;
+				return res;
 			}
 			else {
-				Logger.outFunction("<--[Field:]true");
-				return true;
+				// Ha nincs mozgatható objektum, de van tereptárgy, az engedi-e hogy rálépjen a játékos?
+				if (landobject != null) {
+					return landobject.stepIn(_player);
+				}
+				else {
+					return true;
+				}
 			}
+		}
+		else {
+			// Van másik játékos a mezõn
+			return false;
 		}
 	}
 	
-	public boolean stepOut(Colonel col) {
-		Logger.inFunction("-->[Field:]stepOut(Colonel)");
+	// Játékos lelép a mezõrõl
+	public boolean stepOut(Player _player) {
+		// Játékos leregisztrálása
+		player = null;
+		// Ha van tereptárgy, akkor szólunk neki, hogy lelépett róla a játékos
 		if (landobject != null) {
-			boolean ret = landobject.stepOut(col);
-			Logger.outFunction("<--[Field:]" + ret);
-			return ret;
+			return landobject.stepOut(_player);
 		}
 		else {	
-			Logger.outFunction("<--[Field:]true");
 			return true;
 		}
 	}
 	
 	public boolean place(ItemObject _item) {
-		Logger.inFunction("-->[Field:]place(ItemObject)");
-		if (itemobject != null) {
-			boolean ret = itemobject.place(_item);
-			Logger.outFunction("<--[Field:]" + ret);
-			return ret;
+		//Logger.inFunction("-->[Field:]place(ItemObject)");
+		// Van-e másik játékos a mezõn?
+		if (player == null) {
+			// Ha van mozgatható objektum a mezõn, az engedi-e hogy rárakjon valamit a játékos?
+			if (itemobject != null) {
+				return itemobject.place(_item);
+			}
+			else {
+				// Ha nincs mozgatható objektum, de van tereptárgy, az engedi-e hogy rárakjon valamit a játékos?
+				if (landobject != null) {
+					return landobject.place(_item);
+				}
+				else {
+					itemobject = _item;
+					return true;
+				}
+			}
 		}
 		else {
-			if (landobject != null) {
-				boolean ret = landobject.place(_item);
-				Logger.outFunction("<--[Field:]" + ret);
-				return ret;
+			// Van játékos a mezõn
+			return false;
+		}		
+	}
+	
+	public boolean pick(Player _player) {
+		//Logger.inFunction("-->[Field:]pick(Colonel)");
+		if (player == null) {
+			if (itemobject != null) {
+				if (itemobject.pick(_player)) {
+					// Ha sikerült a felvétel, akkor itemobject nulla lesz és értesítjük a landobject-et, hogy elvettek felöle valamit
+					itemobject = null;
+					if (landobject != null) {
+						landobject.pick(_player);
+					}
+					//Logger.outFunction("<--[Field:]true");
+					return true;
+				}
+				//Logger.outFunction("<--[Field:]false");
+				return false;
 			}
-			else {	
-				Logger.outFunction("<--[Field:]true");
-				return true;
+			else {
+				//Logger.outFunction("<--[Field:]false");
+				return false;
+			}
+		}
+		else {
+			return false;
+		}
+	}
+	
+	// Függvény a mezõ karakteres kiírásához
+	@Override
+	public String toString() {
+		if (player != null) {
+			return player.toString();
+		}
+		else {
+			if (itemobject != null) {
+				return itemobject.toString();
+			}
+			else {
+				if (landobject != null) {
+					return landobject.toString();
+				}
+				else {
+					return " ";
+				}
 			}
 		}
 	}
 	
-	public boolean pick(Colonel col) {
-		Logger.inFunction("-->[Field:]pick(Colonel)");
-		if (itemobject != null) {
-			if (itemobject.pick(col)) {
-				if (landobject != null) {
-					landobject.pick(col);
-				}
-				Logger.outFunction("<--[Field:]true");
-				return true;
-			}
-			Logger.outFunction("<--[Field:]false");
-			return false;
-		}
-		else {
-			Logger.outFunction("<--[Field:]false");
-			return false;
-		}
+	// Versenyzõ beállítása a mezõre
+	public void setPlayer(Player _player) {
+		player = _player;
+	}
+	
+	// Üres-e a mezõ (elhelyezhetõ-e rá új ZPM
+	public boolean isEmpty() {
+		return (player == null && itemobject == null && landobject == null);
 	}
 	
 	/*public boolean openPortal(Portal port) {

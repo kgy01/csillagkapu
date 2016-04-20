@@ -7,11 +7,15 @@ public abstract class ItemObject {
         return false;
     }
 
-    public boolean pick(Colonel col){
+    public boolean pick(Player _player){
         return false;
     }
 
-    public boolean stepIn(Colonel col) {
+    public boolean stepIn(Player _player) {
         return false;
+    }
+    
+    public String toStringVerbose() {
+    	return "ItemObject";
     }
 }
