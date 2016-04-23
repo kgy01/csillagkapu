@@ -19,8 +19,8 @@ public class Replicator extends Player {
 					// Lelépés a jelenlegi mezõrõl
 					engine.getField(position).unsetReplicator();
 					// Új pozíció beállítása
-					position.setX(position.getX() + _direction.getX());
-					position.setY(position.getY() + _direction.getY());
+					position = position.add(_direction);
+					direction = _direction;
 					if (alive)
 						nextfield.setReplicator(this);
 					// Logolás
@@ -45,8 +45,8 @@ public class Replicator extends Player {
     	//Logger.inFunction("-->[Colonel:]die()");
     	//Logger.outFunction("<--[Colonel:]");
     	alive = false;
-    	System.out.println("FELT ply:replicator");
-    	engine.getField(position).setLandObject(null);
+    	System.out.println("FELT ply:replicator pos:"+ position.toString());
+    	engine.getField(position.add(direction)).setLandObject(null);
         //throw new ColonelIsDeadException();
     }
 	

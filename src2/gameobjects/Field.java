@@ -159,15 +159,7 @@ public class Field {
 		return (player == null && itemobject == null && landobject == null);
 	}
 	
-	/*public boolean openPortal(Portal port) {
-		beginFunction();
-		if (itemobject == null) {
-			return ret(landobject.openPortal(port));
-		}
-		return false;
-	}*/
-	
-	// Meglõjül lövedékkel a mezõt
+	// Meglõjük lövedékkel a mezõt
 	public boolean hit(Bullet bul) {
 		if (replicator != null)
 			return replicator.hit(bul);
