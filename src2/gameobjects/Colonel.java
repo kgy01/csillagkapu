@@ -16,14 +16,12 @@ public class Colonel extends Player {
     	mychar = _mychar;
     }
 
-    /*public void shoot(PortalColor color) {
-        Logger.beginFunction();
+    public void shoot(int color) {
         if (isBackpackEmpty()) {
             Bullet bullet = new Bullet(position, direction, color, engine);
             bullet.start();
         }
-        Logger.endFunction("");
-    }*/
+    }
     
 
     // Pályakarakter kiírása:
@@ -42,7 +40,7 @@ public class Colonel extends Player {
  	
  	@Override
  	public String toStringVerbose() {
- 		if (mychar.equals('+'))
+ 		if (mychar.equals("+"))
  			return "Colonel";
  		else
  			return "Jaffa";

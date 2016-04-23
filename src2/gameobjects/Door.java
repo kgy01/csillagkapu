@@ -1,14 +1,21 @@
 package gameobjects;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import utils.Logger;
 
 public class Door extends LandObject {
     private boolean isOpen = false;
+    private char mychar;
+    private static Map<String,Door> doors = new HashMap<String,Door>();
 
     /**
      * Default kostruktor
      */
-    public Door() {
+    public Door(Field _field, char _mychar) {
+    	super(_field);
+    	mychar = _mychar;
     }
 
     /**
@@ -74,9 +81,8 @@ public class Door extends LandObject {
      */
 
     public void open(){
-    	Logger.inFunction("-->[Door:]open()");
+    	System.out.println("Door:" + mychar + " opened");
         isOpen = true;
-        Logger.outFunction("<--[Door:]");
     }
 
     /**
@@ -84,9 +90,8 @@ public class Door extends LandObject {
      */
     
     public void close(){
-    	Logger.inFunction("-->[Door:]close()");
-        isOpen = true;
-        Logger.outFunction("<--[Door:]");
+        System.out.println("Door:" + mychar + " closed");
+        isOpen = false;
     }
 
     /**
@@ -128,5 +133,21 @@ public class Door extends LandObject {
 			return false;
 		}
     }
-
+    
+    // Kiírások
+    public String toString() {
+    	return String.valueOf(mychar);
+    }
+    public String toStringVerbose() {
+    	return "Door:" + mychar;
+    }
+    
+    // Ajtó lekérdezése
+    public static Door getDoor(char _door) {
+    	return doors.getOrDefault(String.valueOf(_door), null);
+    }
+    // Ajtó felvétele
+    public static void addDoor(Door _door) {
+    	doors.put(_door.toString(), _door);
+    }
 }

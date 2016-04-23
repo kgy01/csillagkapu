@@ -46,27 +46,61 @@ public class Loader {
 				for (int j=0; j<line.length(); ++j) {
 					switch (line.charAt(j)) {
 					case '#':
-						fields[j][i] = new Field(new Wall(), null, null);
+						fields[j][i] = new Field();
+						Wall newwall = new Wall(fields[j][i]);
+						fields[j][i].setLandObject(newwall);
+						break;
+					case '@':
+						fields[j][i] = new Field();
+						SpecialWall newspwall = new SpecialWall(fields[j][i]);
+						fields[j][i].setLandObject(newspwall);
 						break;
 					case '+':
 						colonel = new Colonel(new Coordinates(j,i), engine, "+");
-						fields[j][i] = new Field(null, null, colonel);
+						fields[j][i] = new Field();
+						fields[j][i].setPlayer(colonel);
 						break;
 					case '%':
 						jaffa = new Colonel(new Coordinates(j,i), engine, "%");
-						fields[j][i] = new Field(null, null, jaffa);
+						fields[j][i] = new Field();
+						fields[j][i].setPlayer(jaffa);
 						break;
 					case '&':
-						fields[j][i] = new Field(null, new Box(), null);
+						fields[j][i] = new Field();
+						Box box = new Box(fields[j][i]);
+						fields[j][i].setItemObject(box);
 						break;
 					case '!':
-						fields[j][i] = new Field(new Pit(), null, null);
+						fields[j][i] = new Field();
+						Pit newpit = new Pit(fields[j][i]);
+						fields[j][i].setLandObject(newpit);
 						break;
 					case '$':
-						fields[j][i] = new Field(null, new ZPM(), null);
+						fields[j][i] = new Field();
+						ZPM newzpm = new ZPM(fields[j][i]);
+						fields[j][i].setItemObject(newzpm);
+						break;
+					case '?':
+						replicator = new Replicator(new Coordinates(j,i), engine);
+						fields[j][i] = new Field();
+						fields[j][i].setReplicator(replicator);
 						break;
 					default:
-						fields[j][i] = new Field(null, null, null);
+						// Ha a és z közötti karakter van, akkor az mérleg
+						if (line.charAt(j) >= 'a' && line.charAt(j) <= 'z') {
+							fields[j][i] = new Field();
+							Scale newscale = new Scale(fields[j][i], line.charAt(j), 20);
+							fields[j][i].setLandObject(newscale);
+						}
+						else if (line.charAt(j) >= 'A' && line.charAt(j) <= 'Z') {
+							fields[j][i] = new Field();
+							Door newdoor = new Door(fields[j][i], line.charAt(j));
+							fields[j][i].setLandObject(newdoor);
+							Door.addDoor(newdoor);
+						}
+						else {
+							fields[j][i] = new Field();
+						}
 					}
 				}
 			}
@@ -121,7 +155,7 @@ public class Loader {
 			Field field = fields[rand.nextInt(fieldSize.getX()-1)][rand.nextInt(fieldSize.getY()-1)];
 			// Megnézzük, hogy a véletlenszerûen generált mezõre letehetünk-e ZPM-et
 			if (field.isEmpty()) {
-				field.place(new ZPM());
+				field.setItemObject(new ZPM(field));
 				place = false;
 				System.out.println("New ZPM placed");
 			}

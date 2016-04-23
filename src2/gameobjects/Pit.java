@@ -5,23 +5,20 @@ import utils.Logger;
 public class Pit extends LandObject {
 	
 	// Constructor
-	public Pit(){
-		super();
+	public Pit(Field _field){
+		super(_field);
 	}
 	
 	// False-al jelezzuk, hogy at lehet loni rajta
 	@Override
 	public boolean hit(Bullet bul){
-		Logger.inFunction("-->[Pit:]hit(Bullet)");
-		Logger.outFunction("<--[Pit:]false");
 		return false;
 	}
 	
 	// Jelezzuk az ezredesnek, hogy le lehet helyezni a targyat
 	@Override
-	public boolean place(ItemObject object){
-		Logger.inFunction("-->[Pit:]place(ItemObject)");
-		Logger.outFunction("<--[Pit:]true");
+	public boolean place(Player _player, ItemObject object){
+		field.skipItemObject();
 		return true;
 	}
 	

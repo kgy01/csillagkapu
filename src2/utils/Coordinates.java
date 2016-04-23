@@ -50,6 +50,16 @@ public class Coordinates {
     	return "(" + x + "," + y + ")";
     }
     
+    // Két koordináta összeadás
+    public Coordinates add(Coordinates _operand) {
+    	return new Coordinates(this.x + _operand.getX(), this.y + _operand.getY());
+    }
+    
+    // Koordináta ellentetjére fordítása
+    public Coordinates negate() {
+    	return new Coordinates(x * -1, y * -1);
+    }
+    
     public String toStringVerbose() {
     	if (x==0 && y==-1)
     		return "up";

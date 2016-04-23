@@ -3,9 +3,13 @@ package gameobjects;
 import utils.*;
 
 public class Box extends ItemObject {
+	// Stócolhatóság
+	private int heap = 1;
 	
 	//Constructor
-	public Box(){ };
+	public Box(Field _field){
+		super(_field);
+	};
 	
 	
 	// False-al jelezzuk, hogy at lehet loni rajta
@@ -17,16 +21,26 @@ public class Box extends ItemObject {
 	
 	// False-al jelezzuk, hogy nem lehet masik targyat lerakni
 	@Override
-	public boolean place(ItemObject object){
-		Logger.inFunction("-->[Box:]place(ItemObject)");
-		Logger.outFunction("<--[Box:]false");
-		return false;
+	public boolean place(Player _player, ItemObject object){
+		++heap;
+		System.out.println("No Boxes:" + heap);
+		return true;
 	}
 	
 	// Ha ures az ezredes hatizsakja, felvesszuk a dobozt
 	@Override
 	public boolean pick(Player _player){
 		//Logger.inFunction("-->[Box:]pick(Colonel)");
+		if (heap > 1) {
+			if (_player.pushBackpack(new Box(null))) {
+				field.skipItemObject();
+				--heap;
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
 		return _player.pushBackpack(this);
 	}
 	
@@ -44,5 +58,11 @@ public class Box extends ItemObject {
 	@Override
 	public String toStringVerbose() {
 		return "Box";
+	}
+	
+	// Súly lekérdezése
+	@Override
+	public int getWeight() {
+		return heap*10;
 	}
 }

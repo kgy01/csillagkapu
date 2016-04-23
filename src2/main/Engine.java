@@ -20,6 +20,8 @@ public class Engine {
 		colonel = loader.getColonel();
 		jaffa = loader.getJaffa();
 		replicator = loader.getReplicator();
+		// Portálnak engine beállítása:
+		Portal.engine = this;
 	}
 	
 	public Field getField(Coordinates co) {

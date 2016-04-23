@@ -1,5 +1,6 @@
 package main;
 
+import gameobjects.Portal;
 import utils.*;
 
 public class Main {
@@ -47,6 +48,9 @@ public class Main {
 				else if (command[1].equals("jaffa")) {
 					engine.jaffa.step(direction);
 				}
+				else if (command[1].equals("replicator")) {
+					engine.replicator.step(direction);
+				}
 			}
 			// Játékos állapotának megjelenítése
 			else if (command[0].equals("inventory")) {
@@ -69,15 +73,31 @@ public class Main {
 				}
 			}
 			// Tárgy letétele az elõttünk levõ mezõre
-						else if (command[0].equals("place")) {
-							// Játékos kiválasztása
-							if (command[1].equals("colonel")) {
-								engine.colonel.place();
-							}
-							else if (command[1].equals("jaffa")) {
-								engine.jaffa.place();
-							}
-						}
+			else if (command[0].equals("placebox")) {
+				// Játékos kiválasztása
+				if (command[1].equals("colonel")) {
+					engine.colonel.place();
+				}
+				else if (command[1].equals("jaffa")) {
+					engine.jaffa.place();
+				}
+			}
+			// Tárgy letétele az elõttünk levõ mezõre
+			else if (command[0].equals("shoot")) {
+				// Játékos kiválasztása
+				if (command[1].equals("colonel")) {
+					if (command[2].equals("blue"))
+						engine.colonel.shoot(Portal.BLUE);
+					else if (command[2].equals("yellow"))
+						engine.colonel.shoot(Portal.YELLOW);
+				}
+				else if (command[1].equals("jaffa")) {
+					if (command[2].equals("red"))
+						engine.jaffa.shoot(Portal.RED);
+					else if (command[2].equals("green"))
+						engine.jaffa.shoot(Portal.GREEN);
+				}
+			}
 		}
 	}
 }

@@ -1,9 +1,15 @@
 package gameobjects;
 
 public abstract class ItemObject {
+	protected Field field;
+	
+	public ItemObject(Field _field) {
+		field = _field;
+	}
+	
     public boolean hit(Bullet bul) { return false; }
 
-    public boolean place(ItemObject object){
+    public boolean place(Player _player, ItemObject object){
         return false;
     }
 
@@ -17,5 +23,19 @@ public abstract class ItemObject {
     
     public String toStringVerbose() {
     	return "ItemObject";
+    }
+    
+    // Súly lekérdezése
+    public int getWeight() {
+    	return 0;
+    }
+    
+    // Mezõ beállítása
+    public void setField(Field _field) {
+    	field = _field;
+    }
+    
+    public Field getField() {
+    	return field;
     }
 }

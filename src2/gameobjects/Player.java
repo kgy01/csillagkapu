@@ -13,7 +13,7 @@ public class Player {
 	// Hátizsák
 	protected ItemObject backPack;
 	// A pályán van-e még a játékos
-	boolean alive = true;
+	protected boolean alive = true;
 	// Felszedett ZPM-ek száma
 	int noZPM = 0;
 	
@@ -31,15 +31,18 @@ public class Player {
 		if (alive) {
 		// Irányba fordítás:
 		if (direction.equals(_direction)) {
+			// Jelenlegi mezõ elkérése:
+			Field currentfield = engine.getField(position);
 			// Lépés irányába esõ mezõ referenciájának elkérése
-			Field nextfield = engine.getField(new Coordinates(position.getX() + direction.getX(), position.getY() + direction.getY()));
+			Field nextfield = engine.getField(position.add(direction));
 			// Sikerült a léptetés
 			if (nextfield.stepIn(this)) {
+				// Új mezõ lekérése mégegyszer:
+				nextfield = engine.getField(position.add(direction));
 				// Lelépés a jelenlegi mezõrõl
-				engine.getField(position).stepOut(this);
+				currentfield.stepOut(this);
 				// Új pozíció beállítása
-				position.setX(position.getX() + direction.getX());
-				position.setY(position.getY() + direction.getY());
+				position = position.add(_direction);
 				// Beregisztrálás a mezõnél
 				if (alive)
 					nextfield.setPlayer(this);
@@ -85,8 +88,10 @@ public class Player {
     // Tárgy elhelyezése a játékos elõtt lévõ mezõn
     public void place() {
     	Field nextfield = engine.getField(new Coordinates(position.getX() + direction.getX(), position.getY() + direction.getY()));
-    	if (nextfield.place(backPack)) {
+    	if (nextfield.place(this, backPack)) {
     		System.out.println("OK typ:" + backPack.toStringVerbose());
+    		// A letett doboznak beállítjuk a mezõt
+    		//backPack.setField(nextfield);
     		backPack = null;
     		return;
     	}
@@ -115,8 +120,7 @@ public class Player {
     }
     
     public void die() {
-    	Logger.inFunction("-->[Colonel:]die()");
-    	Logger.outFunction("<--[Colonel:]");
+    	System.out.println("FELT ply:" + toStringVerbose());
     	alive = false;
         //throw new ColonelIsDeadException();
     }
@@ -136,5 +140,10 @@ public class Player {
     
     public String toStringVerbose() {
     	return "Player";
+    }
+    
+    public boolean hit(Bullet _bul) {
+    	Portal.teleport(this, _bul);
+    	return true;
     }
 }

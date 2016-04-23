@@ -1,93 +1,226 @@
 package gameobjects;
 
+import main.Engine;
 import utils.*;
 
 public class Portal extends ItemObject {
-    //static Engine engine;
-    //static Portal bluePortal;
-    //static Portal yellowPortal;
-
+    // Portal szÌnek
+	public static final int BLUE = 0;
+	public static final int YELLOW = 1;
+	public static final int RED = 2;
+	public static final int GREEN = 3;
+    // Port·lok
+	static Portal bluePortal;
+    static Portal yellowPortal;
+    static Portal redPortal;
+    static Portal greenPortal;
+    // Engine
+    public static Engine engine;
     private Coordinates position;
-    private Coordinates facingDirection;
+    private Coordinates direction;
+    private int color;
 
     public Coordinates getPosition() {
         return position;
     }
 
-    /*public Direction getFacingDirection() {
-        return facingDirection;
-    }*/
-
-    public Portal(Coordinates _position, Coordinates _facingDirection) {
-        position = _position;
-        facingDirection = _facingDirection;
+    public Coordinates getDirection() {
+        return direction;
     }
 
-    /*static void register(Portal portal) {
-        Logger.beginFunction();
-        Logger.endFunction("");
-    }*/
-
-    /*private static Portal getPortalInColor(PortalColor color) {
-        if (color == PortalColor.YELLOW) {
-            return yellowPortal;
-        } else {
-            return bluePortal;
-        }
-    }*/
-
-    /*private static void registerPortal(Portal portal) {
-        if (portal.getColor() == PortalColor.YELLOW) {
-            yellowPortal = portal;
-        } else {
-            bluePortal = portal;
-        }
-    }*/
-
-    private Field getOtherField() {
-    	Logger.inFunction("-->[Portal:]getOtherField()");
-		
-        Field other = null;
-        Logger.log("[i/n] L√©tezik a m√°sik sz√≠n≈± Csillagkapu?");
-        if (Logger.readKey() == 'i') {
-            other = new Field(null,null, null);
-        }
-        Logger.outFunction("<--[Portal:]field");
-        return other;
+    public Portal(Field _field, Coordinates _position, Coordinates _direction, int _color) {
+        super(_field);
+    	position = _position;
+        direction = _direction.negate();
+        color = _color;
     }
 
-    /*private Portal getOtherPortal() {
-        return Logger.ret(getPortalInColor(color == PortalColor.YELLOW ? PortalColor.BLUE : PortalColor.YELLOW));
-    }*/
+    private Field getFacingField() {
+    	return engine.getField(position.add(direction));
+    }
+
+    private Portal getOtherPortal() {
+        switch (color) {
+        case BLUE:
+        	return yellowPortal;
+        case YELLOW:
+        	return bluePortal;
+        case RED:
+        	return greenPortal;
+        default:
+        	return redPortal;
+        }
+    }
+    
+    private static Portal getOtherPortal(int color) {
+    	switch (color) {
+        case BLUE:
+        	return yellowPortal;
+        case YELLOW:
+        	return bluePortal;
+        case RED:
+        	return greenPortal;
+        default:
+        	return redPortal;
+        }
+    }
+    
+    private static Portal getPortal(int color) {
+    	switch (color) {
+        case BLUE:
+        	return bluePortal;
+        case YELLOW:
+        	return yellowPortal;
+        case RED:
+        	return redPortal;
+        default:
+        	return greenPortal;
+        }
+    }
 
     @Override
     public boolean stepIn(Player _player) {
-    	Logger.inFunction("-->[Portal:]stepIn(Colonel)");
-        Field target = getOtherField();
-        if (target != null) {
-        	boolean ret = target.stepIn(_player);
-        	Logger.outFunction("<--[Portal:]" + ret);
-            return ret;
-        }
-        Logger.outFunction("<--[Portal:]false");
-        return false;
+    	Portal other = getOtherPortal();
+    	if (other == null)
+    		return false;
+    	if (direction.negate().equals(_player.getDirection()) && other.getFacingField().stepIn(_player)) {
+    		// ⁄j pozÌciÛ be·llÌt·sa a j·tÈkosnak
+    		_player.setPosition(other.getPosition());
+    		_player.setDirection(other.getDirection());
+    		// Ne tˆrˆlje a mezı a port·lt
+    		field.skipItemObject();
+    		return true;
+    	}
+    	return false;
     }
     
     @Override
-    public boolean place(ItemObject _item) {
-    	Logger.inFunction("-->[Portal:]place(ItemObject)");
-        Field target = getOtherField();
-        if (target != null) {
-            boolean ret = target.place(_item);
-        	Logger.outFunction("<--[Portal:]" + ret);
-            return ret;
-        }
-        Logger.outFunction("<--[Portal:]false");
-        return false;
+    public boolean place(Player _player, ItemObject _item) {
+    	Portal other = getOtherPortal();
+    	if (other == null)
+    		return false;
+    	if (direction.negate().equals(_player.getDirection()) && other.getFacingField().place(_player, _item)) {
+    		// Ne tˆrˆlje a mezı a port·lt
+    		_item.setField(other.getFacingField());
+    		//field.skipItemObject();
+    		return true;
+    	}
+    	return false;
     }
     
+    @Override
+    public boolean pick(Player _player) {
+    	Portal other = getOtherPortal();
+    	if (other == null)
+    		return false;
+    	if (direction.negate().equals(_player.getDirection()) && other.getFacingField().pick(_player)) {
+    		// Ne tˆrˆlje a mezı a port·lt
+    		field.skipItemObject();
+    		return true;
+    	}
+    	return false;
+    }
     
-    /*private Field getFacingField() {
-        return engine.getField(position.nextFieldCoords(facingDirection));
-    }*/
+    // 
+    @Override
+    public boolean hit(Bullet _bul) {
+    	Portal other = getOtherPortal();
+    	if (other == null)
+    		return true;
+    	if (direction.negate().equals(_bul.getDirection()) && !other.getFacingField().hit(_bul)) {
+    		// LˆvedÈk pozÌciÛj·nak, ir·ny·nak ·t·llÌt·sa
+    		_bul.setPosition(other.getPosition());
+    		_bul.setDirection(other.getDirection());
+    		// Ne tˆrˆlje a mezı a port·lt
+    		//field.skipItemObject();
+    		return false;
+    	}
+    	return true;
+    }
+    
+    // Port·l nyit·sa
+    public static void open(Bullet bul) {
+    	Field newfield = engine.getField(bul.getPosition());
+    	System.out.println("PORTAL OPENED col:" + bul.toString());
+    	switch (bul.getColor()) {
+    	case BLUE:
+    		if (bluePortal != null) {
+    			bluePortal.remove();
+    		}
+    		bluePortal = new Portal(newfield,bul.getPosition(),bul.getDirection(), BLUE);
+    		newfield.setItemObject(bluePortal);
+    		break;
+    	case YELLOW:
+    		if (yellowPortal != null) {
+    			yellowPortal.remove();
+    		}
+    		yellowPortal = new Portal(newfield,bul.getPosition(),bul.getDirection(), YELLOW);
+    		newfield.setItemObject(yellowPortal);
+    		break;
+    	case RED:
+    		if (redPortal != null) {
+    			redPortal.remove();
+    		}
+    		redPortal = new Portal(newfield,bul.getPosition(),bul.getDirection(), RED);
+    		newfield.setItemObject(redPortal);
+    		break;
+		case GREEN:
+			if (greenPortal != null) {
+				greenPortal.remove();
+			}
+			greenPortal = new Portal(newfield,bul.getPosition(),bul.getDirection(), GREEN);
+			newfield.setItemObject(greenPortal);
+			break;
+    	}   
+    }
+    
+    // J·tÈkos teleport·l·sa
+    public static void teleport(Player _player, Bullet _bul) {
+    	Portal other = getPortal(_bul.getColor());
+    	if (other == null)
+    		return;
+    	if (other.getFacingField().stepIn(_player)) {
+    		// J·tÈkos ledob·sa a jelenlegi mezıjÈrıl
+    		engine.getField(_player.getPosition()).setPlayer(null);
+    		// ⁄j pozÌciÛ be·llÌt·sa a j·tÈkosnak
+    		_player.setPosition(other.getPosition());
+    		_player.setDirection(other.getDirection());
+    		// Ne tˆrˆlje a mezı a port·lt
+    		System.out.println("TELEPORT ply:" + _player.toStringVerbose());
+    		_player.step(other.getDirection());
+    	}
+    }
+    
+    // Kiregisztr·lja mag·t a port·l a jelenlegi mezıjÈrıl:
+    public void remove() {
+    	field.setItemObject(null);
+    }
+    
+    public String toString() {
+		switch (color) {
+		case Portal.BLUE:
+			return "[";
+		case Portal.YELLOW:
+			return "]";
+		case Portal.RED:
+			return "{";
+		case Portal.GREEN:
+			return "}";
+		}
+		return "";
+	}
+    
+    public String toStringVerbose() {
+		switch (color) {
+		case Portal.BLUE:
+			return "blue";
+		case Portal.YELLOW:
+			return "yellow";
+		case Portal.RED:
+			return "red";
+		case Portal.GREEN:
+			return "green";
+		}
+		return "";
+	}
 }

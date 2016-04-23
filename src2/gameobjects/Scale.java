@@ -3,21 +3,23 @@ package gameobjects;
 import utils.Logger;
 
 public class Scale extends LandObject {
-    private Door door = new Door();
+    private char mychar;
+    private int limit;
+    private ItemObject weightItem;
 
     /**
      * Default konstruktor
      */
-    public Scale(){
+    public Scale(Field _field, char _char, int _limit){
+    	super(_field);
+    	mychar = _char;
+    	limit = _limit;
     }
 
     /**
      * Konstruktor
      * @param _door : A door referenciajat valtoztatja meg a sajatjara.
      */
-    public Scale(Door _door){
-        door = _door;
-    }
 
     /**
      * A LandObject stepIn(Colonel col) metodusat irja felul.
@@ -28,9 +30,10 @@ public class Scale extends LandObject {
      */
     @Override
     public boolean stepIn(Player _player) {
-    	Logger.inFunction("-->[Scale:]stepIn(Colonel)");
-        door.open();
-        Logger.outFunction("<--[Scale:]true");
+    	// Ha a játékos súlya eléri, vagy meghaladja a limitet, akkor kinyílik a hozzá tartozó ajtó
+        if (_player.getWeight() >= limit) {
+        	Door.getDoor(Character.toUpperCase(mychar)).open();;
+        }
         return true;
     }
 
@@ -43,9 +46,7 @@ public class Scale extends LandObject {
      */
     @Override
     public boolean stepOut(Player _player) {
-    	Logger.inFunction("-->[Wall:]stepIn()");
-    	door.close();
-    	Logger.outFunction("<--[Wall:]true");
+    	Door.getDoor(Character.toUpperCase(mychar)).close();;
 		return true;
     }
 
@@ -57,10 +58,11 @@ public class Scale extends LandObject {
      * @return true
      */
     @Override
-    public boolean place(ItemObject obj) {
-    	Logger.inFunction("-->[Scale:]place(ItemObject)");
-        door.open();
-        Logger.outFunction("<--[Scale:]true");
+    public boolean place(Player _player, ItemObject _item) {
+    	weightItem = _item;
+    	if (_item.getWeight() >= limit) {
+    		Door.getDoor(Character.toUpperCase(mychar)).open();
+        }
         return true;
     }
 
@@ -72,9 +74,9 @@ public class Scale extends LandObject {
      */
     @Override
     public boolean pick(Player _player) {
-    	Logger.inFunction("-->[Wall:]pick(Colonel)");
-    	door.close();
-    	Logger.outFunction("<--[Wall:]true");
+    	if (weightItem.getWeight() < limit) {
+    		Door.getDoor(Character.toUpperCase(mychar)).close();
+        }
 		return true;
     }
 
@@ -98,4 +100,11 @@ public class Scale extends LandObject {
         }
         return ret(door);
     }*/
+    
+    public String toString() {
+    	return String.valueOf(mychar);
+    }
+    public String toStringVerbose() {
+    	return "Scale:" + mychar;
+    }
 }

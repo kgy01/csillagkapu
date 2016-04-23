@@ -8,7 +8,8 @@ public class ZPM extends ItemObject {
 	public static int zpmCount = 0;
 	
 	// Constructor, letrehozasnal noveljuk a szamlalot 1-el
-	public ZPM(){
+	public ZPM(Field _field){
+		super(_field);
 		zpmCount++;
 	}
 	
@@ -22,7 +23,7 @@ public class ZPM extends ItemObject {
 	
 	// False-al jelezzuk, hogy nem lehet masik targyat lerakni
 	@Override
-	public boolean place(ItemObject object){
+	public boolean place(Player _player, ItemObject object){
 		Logger.inFunction("-->[ZPM:]place(ItemObject)");
 		Logger.outFunction("<--[ZPM:]false");
 		return false;
@@ -40,9 +41,13 @@ public class ZPM extends ItemObject {
 	// ZPM-et tartalmazo mezore lepve felvesszuk a ZPM-et (szamlalot csokkentjuk 1-el)
 	@Override
 	public boolean stepIn(Player _player){
-		if (_player.addZPM())
+		if (_player.addZPM()) {
 			zpmCount--;
-		System.out.println("ZPM added to " + _player.toStringVerbose());
+			System.out.println("ZPM added to " + _player.toStringVerbose());
+		}
+		else {
+			field.skipItemObject();
+		}
 		return true;
 	}
 	
