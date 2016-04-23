@@ -3,6 +3,10 @@ package main;
 import gameobjects.Portal;
 import utils.*;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class Main {
 	private static boolean ciklus = true;
 	private static Engine engine;
@@ -10,21 +14,36 @@ public class Main {
 	public static void main(String[] args) {
 		// Szukseges dolgok betoltese
 		engine = new Engine();
-		
-		// Menu kiirasa
-		System.out.println("+--------------------------------------+");
-		System.out.println("| O'Neill ezredes kalandjai            |");
-		System.out.println("+--------------------------------------+");
-		System.out.println("| Státusz: Prototípus                  |");
-		System.out.println("+--------------------------------------+");
-		System.out.println("| Készítette: MalMo Szoftver Co., Ltd. |");
-		System.out.println("+--------------------------------------+");
-		System.out.println();
-		
+
+        BufferedReader bufferedReader = null;
+        if (System.console() == null) {
+            bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        } else {
+            // Menu kiirasa
+            System.out.println("+--------------------------------------+");
+            System.out.println("| O'Neill ezredes kalandjai            |");
+            System.out.println("+--------------------------------------+");
+            System.out.println("| StÃ¡tusz: PrototÃ­pus                  |");
+            System.out.println("+--------------------------------------+");
+            System.out.println("| KÃ©szÃ­tette: MalMo Szoftver    Co., Ltd. |");
+            System.out.println("+--------------------------------------+");
+            System.out.println();
+            System.out.println("Hasznald a \"help\" utasÃ­tÃ¡st az elÃ©rhetÅ‘ parancsok listÃ¡zÃ¡sÃ¡hoz!");
+        }
+
 		// Beolvasunk egy parancsot
 		while(ciklus) {
-			System.out.print("> ");
-			String[] command = System.console().readLine().split(" ");
+            String[] command = new String[0];
+            if (System.console() == null && bufferedReader != null) {
+                try {
+                    command = bufferedReader.readLine().split(" ");
+                } catch (IOException e) {
+                    System.out.println("Nem olvashatÃ³ a bemenet");
+                }
+            } else {
+                System.out.print("> ");
+                command = System.console().readLine().split(" ");
+            }
 			if (command[0].equals("loadgame")) {
 				try {
 					engine.init(command[1]);
@@ -40,7 +59,7 @@ public class Main {
 				ciklus = false;
 			}
 			else if (command[0].equals("step")) {
-				// Léptetési irány elõállítása a parancsból
+				// Lï¿½ptetï¿½si irï¿½ny elï¿½ï¿½llï¿½tï¿½sa a parancsbï¿½l
 				try {
 					Coordinates direction;
 					if (command[2].equals("up")) direction = new Coordinates(0,-1);
@@ -48,7 +67,7 @@ public class Main {
 					else if (command[2].equals("down")) direction = new Coordinates(0,1);
 					else if (command[2].equals("left")) direction = new Coordinates(-1,0);
 					else throw new Exception("Fatal error!");
-					// Játékos kiválasztása
+					// Jï¿½tï¿½kos kivï¿½lasztï¿½sa
 					if (command[1].equals("colonel")) {
 						engine.colonel.step(direction);
 					}
@@ -64,10 +83,10 @@ public class Main {
 					System.out.println("step [colonel|jaffa|replicator] [up|right|down|left]");
 				}
 			}
-			// Játékos állapotának megjelenítése
+			// Jï¿½tï¿½kos ï¿½llapotï¿½nak megjelenï¿½tï¿½se
 			else if (command[0].equals("inventory")) {
 				try {
-					// Játékos kiválasztása
+					// Jï¿½tï¿½kos kivï¿½lasztï¿½sa
 					if (command[1].equals("colonel")) {
 						engine.colonel.showInventory();
 					}
@@ -80,10 +99,10 @@ public class Main {
 					System.out.println("inventory [colonel|jaffa]");
 				}
 			}
-			// Tárgy felvétele az elõttünk levõ mezõrõl
+			// Tï¿½rgy felvï¿½tele az elï¿½ttï¿½nk levï¿½ mezï¿½rï¿½l
 			else if (command[0].equals("pick")) {
 				try {
-					// Játékos kiválasztása
+					// Jï¿½tï¿½kos kivï¿½lasztï¿½sa
 					if (command[1].equals("colonel")) {
 						engine.colonel.pick();
 					}
@@ -96,10 +115,10 @@ public class Main {
 					System.out.println("pick [colonel|jaffa]");
 				}
 			}
-			// Tárgy letétele az elõttünk levõ mezõre
+			// Tï¿½rgy letï¿½tele az elï¿½ttï¿½nk levï¿½ mezï¿½re
 			else if (command[0].equals("placebox")) {
 				try {
-					// Játékos kiválasztása
+					// Jï¿½tï¿½kos kivï¿½lasztï¿½sa
 					if (command[1].equals("colonel")) {
 						engine.colonel.place();
 					}
@@ -111,12 +130,12 @@ public class Main {
 				catch (Exception ex) {
 					System.out.println("placebox [colonel|jaffa]");
 				}
-					
+
 			}
-			// Tárgy letétele az elõttünk levõ mezõre
+			// Tï¿½rgy letï¿½tele az elï¿½ttï¿½nk levï¿½ mezï¿½re
 			else if (command[0].equals("shoot")) {
 				try {
-					// Játékos kiválasztása
+					// Jï¿½tï¿½kos kivï¿½lasztï¿½sa
 					if (command[1].equals("colonel")) {
 						if (command[2].equals("blue"))
 							engine.colonel.shoot(Portal.BLUE);
@@ -137,8 +156,20 @@ public class Main {
 					System.out.println("shoot [colonel|jaffa] [colonel:[blue|yellow]|jaffa:[red|green]]");
 				}
 			}
-			else
-				System.out.println("Command '"+command[0]+"' not found!");
+			else if (command[0].equals("help")) {
+				System.out.println("Elerheto utasitasok:");
+				System.out.println("loadgame [fajlnev]");
+				System.out.println("display");
+				System.out.println("exit");
+				System.out.println("step (colonel|jaffa|replicator) (up|right|down|left)");
+				System.out.println("inventory (colonel|jaffa)");
+				System.out.println("pick (colonel|jaffa)");
+				System.out.println("placebox (colonel|jaffa)");
+				System.out.println("shoot (colonel|jaffa) (blue|yellow|red|green)");
+			}
+			else {
+                System.out.println("Command '" + command[0] + "' not found!");
+            }
 		}
 	}
 }

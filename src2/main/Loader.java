@@ -13,9 +13,9 @@ import gameobjects.*;
 import utils.*;
 
 public class Loader {
-	// Referencia a játékmotorra
+	// Referencia a jï¿½tï¿½kmotorra
 	private Engine engine;
-	// Referenciák a játékosokra
+	// Referenciï¿½k a jï¿½tï¿½kosokra
 	private Colonel colonel;
 	private Colonel jaffa;
 	private Replicator replicator;
@@ -24,9 +24,9 @@ public class Loader {
 	
 	public Loader(Engine _engine, String _filename) {
 		engine = _engine;
-		// Sorok tárolására ArrayList
+		// Sorok tï¿½rolï¿½sï¿½ra ArrayList
 		List<String> rows = new ArrayList<String>();
-		//Sorok beolvasása
+		//Sorok beolvasï¿½sa
 		try {
 			BufferedReader bfreader = new BufferedReader(new InputStreamReader(new FileInputStream(_filename)));
 			String row;
@@ -36,11 +36,11 @@ public class Loader {
 			}
 			bfreader.close();
 					
-			// Kétdimenziós tömb létrehozása a mezõknek. Szélesség: sor szélessége; Magasság: sorok száma
+			// Kï¿½tdimenziï¿½s tï¿½mb lï¿½trehozï¿½sa a mezï¿½knek. Szï¿½lessï¿½g: sor szï¿½lessï¿½ge; Magassï¿½g: sorok szï¿½ma
 			fieldSize = new Coordinates(rows.get(0).length(), rows.size());
 			fields = new Field[rows.get(0).length()][rows.size()];
 			
-			// Tömb feltöltése
+			// Tï¿½mb feltï¿½ltï¿½se
 			for (int i=0; i<rows.size(); ++i) {
 				String line = rows.get(i);
 				for (int j=0; j<line.length(); ++j) {
@@ -86,7 +86,7 @@ public class Loader {
 						fields[j][i].setReplicator(replicator);
 						break;
 					default:
-						// Ha a és z közötti karakter van, akkor az mérleg
+						// Ha a ï¿½s z kï¿½zï¿½tti karakter van, akkor az mï¿½rleg
 						if (line.charAt(j) >= 'a' && line.charAt(j) <= 'z') {
 							fields[j][i] = new Field();
 							Scale newscale = new Scale(fields[j][i], line.charAt(j), 20);
@@ -107,7 +107,7 @@ public class Loader {
 			System.out.println("OK");
 		}
 		catch (FileNotFoundException fnfe) {
-			System.out.println("Nem található a bemeneti fájl!");
+			System.out.println("Nem talï¿½lhatï¿½ a bemeneti fï¿½jl!");
 		}
 		catch (IOException ioe) {
 			ioe.printStackTrace();
@@ -136,9 +136,15 @@ public class Loader {
 		return replicator;
 	}
 	
-	// Pálya kiírása
+	// Pï¿½lya kiï¿½rï¿½sa
 	public void display() {
+		System.out.print("X");
+		for (int i=0; i<fieldSize.getX(); ++i) {
+			System.out.print(i%10);
+		}
+		System.out.println();
 		for (int i=0; i<fieldSize.getY(); ++i) {
+			System.out.print(i%10);
 			for (int j=0; j<fieldSize.getX(); ++j) {
 				System.out.print(fields[j][i].toString());
 			}
@@ -146,14 +152,14 @@ public class Loader {
 		}
 	}
 	
-	// Új ZPM elhelyezése
+	// ï¿½j ZPM elhelyezï¿½se
 	public void genZPM() {
 		boolean place = true;
 		Random rand = new Random();
-		// Amíg nem sikerül elhelyezni, addig próbálkozunk
+		// Amï¿½g nem sikerï¿½l elhelyezni, addig prï¿½bï¿½lkozunk
 		while (place) {
 			Field field = fields[rand.nextInt(fieldSize.getX()-1)][rand.nextInt(fieldSize.getY()-1)];
-			// Megnézzük, hogy a véletlenszerûen generált mezõre letehetünk-e ZPM-et
+			// Megnï¿½zzï¿½k, hogy a vï¿½letlenszerï¿½en generï¿½lt mezï¿½re letehetï¿½nk-e ZPM-et
 			if (field.isEmpty()) {
 				field.setItemObject(new ZPM(field));
 				place = false;
