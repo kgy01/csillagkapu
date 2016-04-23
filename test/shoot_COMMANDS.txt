@@ -1,0 +1,40 @@
+loadgame shoot_MAP.txt
+inventory colonel
+shoot jaffa red
+shoot colonel yellow
+pick colonel
+step colonel right
+step colonel right
+step colonel right
+placebox colonel
+step colonel left
+step colonel left
+step colonel left
+step colonel left
+step colonel down
+shoot colonel yellow
+step colonel down
+step colonel left
+shoot colonel blue
+step colonel down
+step colonel down
+step colonel left
+step colonel left
+step colonel right
+step colonel right
+step colonel up
+shoot colonel blue
+step replicator left
+step replicator up
+step colonel left
+shoot colonel blue
+step colonel up
+shoot colonel blue
+step colonel left
+step colonel left
+step colonel down
+step colonel down
+step colonel left
+shoot colonel blue
+shoot colonel blue
+exit

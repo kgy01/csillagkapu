@@ -1,0 +1,43 @@
+OK
+Direction: up
+ZPMs: 0
+BPack: empty
+OK Portal opened
+Failed
+Box added to Colonel
+OK pos: (5,10) dir: right
+OK pos: (6,10) dir: right
+OK pos: (7,10) dir: right
+OK The A door opened
+OK pos: (7,10) dir: left
+OK pos: (6,10) dir: left
+OK pos: (5,10) dir: left
+OK pos: (4,10) dir: left
+OK pos: (4,10) dir: down
+OK Portal opened
+Failed
+OK pos: (4,10) dir: left
+OK Portal opened
+OK pos: (4,10) dir: down
+ZPM added to colonel
+OK pos: (1,10) dir: right
+OK pos: (1,10) dir: left
+OK pos: (4,10) dir: up
+OK pos: (4,10) dir: right
+OK pos: (5,10) dir: right
+OK pos: (5,10) dir: up
+OK Portal opened
+OK pos: (5,1) dir: right
+OK pos: (1,10) dir: right
+OK pos: (5,10) dir: left
+OK Repliacor died
+OK pos: (5,10) dir: up
+OK Portal opened
+OK pos: (5,10) dir: left
+OK pos: (4,10) dir: left
+OK pos: (4,10) dir: down
+OK pos: (5,1) dir: down
+OK pos: (5,1) dir: left
+OK Jaffa pos: (4,10) dir: left
+Failed
+Test end
