@@ -1,68 +1,63 @@
 loadgame test1.txt
-step colonel up			//Falnak megy a játékos
+step colonel up	
 step colonel left
-step colonel left		//Falnak megy a játékos
-step Jaffa up			//Falnak megy a játékos
+step colonel left
+step Jaffa up	
 step Jaffa right
-step Jaffa right		//Falnak megy a játékos
-step replicator down		//Falnak megy a replikátor
-step replicator left		//Falnak megy a replikátor
+step Jaffa right
+step replicator down
+step replicator left
 step Jaffa left			
 step Jaffa left
 step Jaffa left
 step Jaffa left
 step colonel right
 step colonel right
-step colonel right		//Játékosok keresztül próbálnak menni egymáson
-step Jaffa left			//Játékosok keresztül próbálnak menni egymáson
+step colonel right
+step Jaffa left	
 step colonel left
 step colonel left
 step replicator up
 step colonel down
-step colonel down		//Replicator és Játékos egymás útját keresztezi
-step replicator up		//Replicator és Játékos egymás útját keresztezi
+step colonel down
+step replicator up
 step colonel right
 step colonel right
 step colonel down
 step colonel down
 step colonel down
-step colonel down		//Zárt ajtón próbál keresztüllépni a játékos
+step colonel down
 step colonel up
 step colonel up
 step colonel right
 step colonel right
 step replicator right
 step replicator down
-step replicator down		//Zárt ajtón próbál keresztüllépni a replikátor
-step colonel right		//Játékos keresztül próbál menni dobozon
-pick colonel			//Dobozt vesz fel a játékos
+step replicator down
 step colonel right
-pick colonel			//Két doboz egymás után való felvételének kísérlete
+pick colonel
+step colonel right
+pick colonel
 step colonel down
-placebox colonel		//Dobozt tesz le a játékos
+placebox colonel
 pick colonel
 step replicator right
 step replicator right
 step replicator right
-step replicator right	//Mérlegre lép a Replikátor
-//Kinyílik-e az ajtó, ha elég súly van a mérlegen
+step replicator right
 step replicator up
-//Replicator lelép, így bezáródik az ajtó
 step colonel down
-placebox colonel		//Érvénytelen helyre(falba) próbál meg dobozt letenni a játékos
+placebox colonel
 step colonel right
 step colonel right
-step colonel right		//Mérlegre lép a Játékos
-//Kinyílik-e az ajtó, ha elég súly van a mérlegen
-step colonel left
-step colonel left
-//Ezredes lelép a mérlegrõl, így bezáródik az ajtó
 step colonel right
-placebox colonel		//Dobozt teszünk a mérlegre
-//Kinyílik-e az ajtó, ha elég súly van a mérlegen
 step colonel left
 step colonel left
-step replicator left		//A replicator dobozt tartalmazó mezõre próbál rálépni
+step colonel right
+placebox colonel
+step colonel left
+step colonel left
+step replicator left
 step replicator up
 step replicator left
 step replicator left
@@ -70,19 +65,18 @@ step replicator down
 step replicator left
 step replicator left
 step replicator down
-step replicator down	//Nyitott ajtón próbál kereszülmenni a replikátor
 step replicator down
-step replicator left	//Szakadékba esik a Replicator
-//Megsemmisül a szakadék
+step replicator down
+step replicator left
 step colonel left
 step colonel left
 step colonel down
-step colonel down		//Nyitott ajtón próbál kereszülmenni a játékos
+step colonel down
 step colonel down
 step colonel right
 pick colonel
 step colonel right
 step colonel right
-placebox colonel		//Szakadékba esik a doboz
+placebox colonel
 step colonel right
 step colonel right	
