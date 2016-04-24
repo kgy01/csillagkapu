@@ -42,7 +42,7 @@ public class Player {
 				// Lelépés a jelenlegi mezõrõl
 				currentfield.stepOut(this);
 				// Új pozíció beállítása
-				position = position.add(_direction);
+				position = position.add(direction);
 				// Beregisztrálás a mezõnél
 				if (alive)
 					nextfield.setPlayer(this);

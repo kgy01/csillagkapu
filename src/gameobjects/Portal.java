@@ -87,6 +87,7 @@ public class Portal extends ItemObject {
     		// Új pozíció beállítása a játékosnak
     		_player.setPosition(other.getPosition());
     		_player.setDirection(other.getDirection());
+    		//_player.step(other.getDirection());
     		// Ne törölje a mezõ a portált
     		field.skipItemObject();
     		return true;
