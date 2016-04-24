@@ -13,23 +13,17 @@ public class Replicator extends Player {
 	// Replicator léptetése
 		public void step(Coordinates _direction) {
 			if (alive) {
-				// Véletlen irány megadása:
-				if (_direction.equals(new Coordinates(0,0))) {
-					Random rand = new Random();
-					_direction = new Coordinates(rand.nextInt(3)-1,rand.nextInt(3)-1);
-					System.out.println(_direction.toString());
-				}
+				direction = _direction;
 				// Lépés irányába esõ mezõ referenciájának elkérése
-				Field nextfield = engine.getField(position.add(_direction));
+				Field nextfield = engine.getField(position.add(direction));
 				// Sikerült a léptetés
 				Field currentfield = engine.getField(position);
 				if (nextfield.stepIn(this)) {
-					nextfield = engine.getField(position.add(_direction));
+					nextfield = engine.getField(position.add(direction));
 					// Lelépés a jelenlegi mezõrõl
 					currentfield.unsetReplicator();
 					// Új pozíció beállítása
-					position = position.add(_direction);
-					direction = _direction;
+					position = position.add(direction);
 					if (alive)
 						nextfield.setReplicator(this);
 					// Logolás
@@ -49,21 +43,23 @@ public class Replicator extends Player {
 					if (alive) {
 						// Véletlen irány megadása:
 						Random rand = new Random();
-						Coordinates _direction = new Coordinates(rand.nextInt(3)-1,rand.nextInt(3)-1);
+						direction = new Coordinates(rand.nextInt(3)-1,rand.nextInt(3)-1);
 						//System.out.println(_direction.toString());
 						// Lépés irányába esõ mezõ referenciájának elkérése
-						Field nextfield = engine.getField(position.add(_direction));
+						// Lépés irányába esõ mezõ referenciájának elkérése
+						Field nextfield = engine.getField(position.add(direction));
 						// Sikerült a léptetés
+						Field currentfield = engine.getField(position);
 						if (nextfield.stepIn(this)) {
+							nextfield = engine.getField(position.add(direction));
 							// Lelépés a jelenlegi mezõrõl
-							engine.getField(position).unsetReplicator();
+							currentfield.unsetReplicator();
 							// Új pozíció beállítása
-							position = position.add(_direction);
-							direction = _direction;
+							position = position.add(direction);
 							if (alive)
 								nextfield.setReplicator(this);
 							// Logolás
-							//System.out.println("OK pos:" + position.toString());
+							System.out.println("OK pos:" + position.toString());
 						}
 						else {
 							//System.out.println("FAILED");
