@@ -33,7 +33,7 @@ public class Colonel extends Player {
  	// Két ZPM felvétele után új keletkezik
  	@Override
  	public boolean addZPM() {
-    	if((++noZPM % 2) == 0 && mychar.equals('+'))
+    	if((++noZPM % 2) == 0 && mychar.equals("+"))
     		engine.genZPM();
     	return true;
     }

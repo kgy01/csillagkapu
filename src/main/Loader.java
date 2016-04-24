@@ -158,12 +158,14 @@ public class Loader {
 		Random rand = new Random();
 		// Am�g nem siker�l elhelyezni, addig pr�b�lkozunk
 		while (place) {
-			Field field = fields[rand.nextInt(fieldSize.getX()-1)][rand.nextInt(fieldSize.getY()-1)];
+			int x = rand.nextInt(fieldSize.getX()-1);
+			int y = rand.nextInt(fieldSize.getY()-1);
+			Field field = fields[x][y];
 			// Megn�zz�k, hogy a v�letlenszer�en gener�lt mez�re letehet�nk-e ZPM-et
 			if (field.isEmpty()) {
 				field.setItemObject(new ZPM(field));
 				place = false;
-				System.out.println("New ZPM placed");
+				System.out.println("NEW ZPM pos:(" + x + "," + y + ")");
 			}
 		}
 	}
