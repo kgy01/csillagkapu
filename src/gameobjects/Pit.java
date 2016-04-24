@@ -17,6 +17,7 @@ public class Pit extends LandObject {
 	// Jelezzuk az ezredesnek, hogy le lehet helyezni a targyat
 	@Override
 	public boolean place(Player _player, ItemObject object){
+		System.out.println("FELT typ:" + object.toStringVerbose());
 		field.skipItemObject();
 		return true;
 	}
