@@ -42,6 +42,36 @@ public class Replicator extends Player {
 			}
 		}
 	
+		// Replicator véletlenszerû léptetése
+				public void step() {
+					if (alive) {
+						// Véletlen irány megadása:
+						Random rand = new Random();
+						Coordinates _direction = new Coordinates(rand.nextInt(3)-1,rand.nextInt(3)-1);
+						//System.out.println(_direction.toString());
+						// Lépés irányába esõ mezõ referenciájának elkérése
+						Field nextfield = engine.getField(position.add(_direction));
+						// Sikerült a léptetés
+						if (nextfield.stepIn(this)) {
+							// Lelépés a jelenlegi mezõrõl
+							engine.getField(position).unsetReplicator();
+							// Új pozíció beállítása
+							position = position.add(_direction);
+							direction = _direction;
+							if (alive)
+								nextfield.setReplicator(this);
+							// Logolás
+							//System.out.println("OK pos:" + position.toString());
+						}
+						else {
+							//System.out.println("FAILED");
+						}
+					}
+					else {
+						//System.out.println("DIED");
+					}
+				}
+	
 	@Override	
 	public String toString() {
 		return "?";

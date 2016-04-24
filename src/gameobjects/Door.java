@@ -67,11 +67,10 @@ public class Door extends LandObject {
      *          lövedék csapódott bele. Egyébként false.
      * @param bul : A lovedek
      * @return  Az ajto nyitotsagatol fugg.
-     *
+     **/
     @Override
     public boolean hit(Bullet bul) {
-        beginFunction();
-        return ret(isClosed());
+        return !isOpen;
     }
 
     /**

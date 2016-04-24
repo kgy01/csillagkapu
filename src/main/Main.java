@@ -213,7 +213,7 @@ public class Main {
 			}
 			// Replicator veletlenszeru leptetese
 			if (stepReplicator)
-				engine.replicator.step(new Coordinates(0,0));
+				engine.replicator.step();
 		}
 	}
 }
