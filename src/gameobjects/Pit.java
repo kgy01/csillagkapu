@@ -1,6 +1,5 @@
 package gameobjects;
 
-import utils.Logger;
 
 public class Pit extends LandObject {
 	

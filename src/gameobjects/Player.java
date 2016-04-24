@@ -125,6 +125,11 @@ public class Player {
         //throw new ColonelIsDeadException();
     }
     
+    // Aktiv-e a jatekos
+    public boolean isAlive() {
+    	return alive;
+    }
+    
     public boolean addZPM() {
     	return false;
     }
@@ -145,5 +150,10 @@ public class Player {
     public boolean hit(Bullet _bul) {
     	Portal.teleport(this, _bul);
     	return true;
+    }
+    
+    // Begyujtott ZPMek száma
+    public int getNOZPMs() {
+    	return noZPM;
     }
 }

@@ -1,6 +1,5 @@
 package gameobjects;
 
-import utils.Logger;
 
 public class Field {
 	// Tereptárgy

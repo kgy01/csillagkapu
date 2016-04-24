@@ -1,6 +1,7 @@
 package main;
 
 import gameobjects.Portal;
+import gameobjects.ZPM;
 import utils.*;
 
 import java.io.BufferedReader;
@@ -14,6 +15,7 @@ public class Main {
 	public static void main(String[] args) {
 		// Szukseges dolgok betoltese
 		engine = new Engine();
+		boolean stepReplicator = false;
 
         BufferedReader bufferedReader = null;
         if (System.console() == null) {
@@ -23,12 +25,12 @@ public class Main {
             System.out.println("+--------------------------------------+");
             System.out.println("| O'Neill ezredes kalandjai            |");
             System.out.println("+--------------------------------------+");
-            System.out.println("| Státusz: Prototípus                  |");
+            System.out.println("| Statusz: Prototipus                  |");
             System.out.println("+--------------------------------------+");
-            System.out.println("| Készítette: MalMo Szoftver    Co., Ltd. |");
+            System.out.println("| Keszitette: MalMo Szoftver Co., Ltd. |");
             System.out.println("+--------------------------------------+");
             System.out.println();
-            System.out.println("Hasznald a \"help\" utasítást az elérhető parancsok listázásához!");
+            System.out.println("Hasznald a \"help\" utasitast az elerheto parancsok listazasahozhoz!");
         }
 
 		// Beolvasunk egy parancsot
@@ -61,26 +63,44 @@ public class Main {
 			else if (command[0].equals("step")) {
 				// L�ptet�si ir�ny el��ll�t�sa a parancsb�l
 				try {
-					Coordinates direction;
-					if (command[2].equals("up")) direction = new Coordinates(0,-1);
-					else if (command[2].equals("right")) direction = new Coordinates(1,0);
-					else if (command[2].equals("down")) direction = new Coordinates(0,1);
-					else if (command[2].equals("left")) direction = new Coordinates(-1,0);
-					else throw new Exception("Fatal error!");
 					// J�t�kos kiv�laszt�sa
 					if (command[1].equals("colonel")) {
+						Coordinates direction;
+						if (command[2].equals("up")) direction = new Coordinates(0,-1);
+						else if (command[2].equals("right")) direction = new Coordinates(1,0);
+						else if (command[2].equals("down")) direction = new Coordinates(0,1);
+						else if (command[2].equals("left")) direction = new Coordinates(-1,0);
+						else throw new Exception("Fatal error!");
 						engine.colonel.step(direction);
 					}
 					else if (command[1].equals("jaffa")) {
+						Coordinates direction;
+						if (command[2].equals("up")) direction = new Coordinates(0,-1);
+						else if (command[2].equals("right")) direction = new Coordinates(1,0);
+						else if (command[2].equals("down")) direction = new Coordinates(0,1);
+						else if (command[2].equals("left")) direction = new Coordinates(-1,0);
+						else throw new Exception("Fatal error!");
 						engine.jaffa.step(direction);
 					}
 					else if (command[1].equals("replicator")) {
-						engine.replicator.step(direction);
+						if (command[2].equals("up")) engine.replicator.step(new Coordinates(0,-1));
+						else if (command[2].equals("right")) engine.replicator.step(new Coordinates(1,0));
+						else if (command[2].equals("down")) engine.replicator.step(new Coordinates(0,1));
+						else if (command[2].equals("left")) engine.replicator.step(new Coordinates(-1,0));
+						else if (command[2].equals("auto")) {
+							if (command[3].equals("enable"))
+								stepReplicator = true;
+							else if (command[3].equals("disable"))
+								stepReplicator = false;
+							else
+								throw new Exception("Fatal error!");
+						}
+						else throw new Exception("Fatal error!");
 					}
 					else throw new Exception("Fatal error!");
 				}
 				catch (Exception ex) {
-					System.out.println("step [colonel|jaffa|replicator] [up|right|down|left]");
+					System.out.println("step [colonel|jaffa|replicator] [up|right|down|left|replicator:auto] [replicator:[enable|disable]]");
 				}
 			}
 			// J�t�kos �llapot�nak megjelen�t�se
@@ -161,15 +181,39 @@ public class Main {
 				System.out.println("loadgame [fajlnev]");
 				System.out.println("display");
 				System.out.println("exit");
-				System.out.println("step (colonel|jaffa|replicator) (up|right|down|left)");
-				System.out.println("inventory (colonel|jaffa)");
-				System.out.println("pick (colonel|jaffa)");
-				System.out.println("placebox (colonel|jaffa)");
-				System.out.println("shoot (colonel|jaffa) (blue|yellow|red|green)");
+				System.out.println("step [colonel|jaffa|replicator] [up|right|down|left]");
+				System.out.println("inventory [colonel|jaffa]");
+				System.out.println("pick [colonel|jaffa]");
+				System.out.println("placebox [colonel|jaffa]");
+				System.out.println("shoot [colonel|jaffa] [colonel:[blue|yellow]|jaffa:[red|green]");
 			}
 			else {
                 System.out.println("Command '" + command[0] + "' not found!");
             }
+			// Jatekosok allapotanak ellenorzese
+			try {
+			if (engine.colonel != null && engine.jaffa != null) {
+				if (engine.colonel.isAlive() && !engine.jaffa.isAlive())
+					throw new GameOverException("Colonel won!");
+				else if (!engine.colonel.isAlive() && engine.jaffa.isAlive())
+					throw new GameOverException("Jaffa won!");
+				else if (ZPM.getZPMCount() == 0) {
+					if (engine.colonel.getNOZPMs() > engine.jaffa.getNOZPMs())
+						throw new GameOverException("Colonel won!");
+					else if (engine.colonel.getNOZPMs() < engine.jaffa.getNOZPMs())
+						throw new GameOverException("Jaffa won!");
+					else
+						throw new GameOverException("Deuce!");
+				}
+			}
+			}
+			catch (GameOverException goe) {
+				System.out.println(goe.getMessage());
+				ciklus = false;
+			}
+			// Replicator veletlenszeru leptetese
+			if (stepReplicator)
+				engine.replicator.step(new Coordinates(0,0));
 		}
 	}
 }

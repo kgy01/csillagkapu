@@ -1,6 +1,5 @@
 package gameobjects;
 
-import utils.Logger;
 
 public class Wall extends LandObject{
 	//A Pick(), OpenPortal(), Place() függvények nem változtak, ezért ezek nem kerültek be az osztályba

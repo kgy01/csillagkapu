@@ -1,8 +1,9 @@
 package gameobjects;
 
+import java.util.Random;
+
 import main.Engine;
 import utils.Coordinates;
-import utils.Logger;
 
 public class Replicator extends Player {
 	public Replicator(Coordinates _position, Engine _engine) {
@@ -12,8 +13,14 @@ public class Replicator extends Player {
 	// Replicator léptetése
 		public void step(Coordinates _direction) {
 			if (alive) {
+				// Véletlen irány megadása:
+				if (_direction.equals(new Coordinates(0,0))) {
+					Random rand = new Random();
+					_direction = new Coordinates(rand.nextInt(3)-1,rand.nextInt(3)-1);
+					System.out.println(_direction.toString());
+				}
 				// Lépés irányába esõ mezõ referenciájának elkérése
-				Field nextfield = engine.getField(new Coordinates(position.getX() + _direction.getX(), position.getY() + _direction.getY()));
+				Field nextfield = engine.getField(position.add(_direction));
 				// Sikerült a léptetés
 				if (nextfield.stepIn(this)) {
 					// Lelépés a jelenlegi mezõrõl
@@ -24,7 +31,7 @@ public class Replicator extends Player {
 					if (alive)
 						nextfield.setReplicator(this);
 					// Logolás
-					System.out.println("OK pos:" + position.toString() + " dir:" + direction.toStringVerbose());
+					System.out.println("OK pos:" + position.toString());
 				}
 				else {
 					System.out.println("FAILED");

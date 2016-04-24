@@ -1,7 +1,10 @@
 package gameobjects;
 
+import main.Engine;
+
 public abstract class ItemObject {
 	protected Field field;
+	//public static Engine engine;
 	
 	public ItemObject(Field _field) {
 		field = _field;

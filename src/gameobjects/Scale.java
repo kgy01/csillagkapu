@@ -1,6 +1,5 @@
 package gameobjects;
 
-import utils.Logger;
 
 public class Scale extends LandObject {
     private char mychar;

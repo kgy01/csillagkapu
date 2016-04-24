@@ -3,8 +3,6 @@ package gameobjects;
 import java.util.HashMap;
 import java.util.Map;
 
-import utils.Logger;
-
 public class Door extends LandObject {
     private boolean isOpen = false;
     private char mychar;
@@ -120,19 +118,6 @@ public class Door extends LandObject {
      * Az ajtó nyitotságának lekérdezése
      * @return az ajtó nyitotsága
      */
-    
-    public boolean isOpen(){
-    	Logger.inFunction("-->[Door:]isOpen()");
-    	Logger.log("[i/n] Nyitva legyen az ajtó?");
-    	if (Logger.readKey() == 'i') {
-			Logger.outFunction("<--[Door:]true");
-			return true;
-		}
-		else {
-			Logger.outFunction("<--[Door:]false");
-			return false;
-		}
-    }
     
     // Ki�r�sok
     public String toString() {
