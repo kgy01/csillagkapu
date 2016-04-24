@@ -18,7 +18,7 @@ public class Field {
 	// Játékos a mezõre lép
 	public boolean stepIn(Player _player){
 		// Van-e másik játékos a mezõn?
-		if (player == null) {
+		if (player == null || _player.toString().equals("?")) {
 			// Ha van mozgatható objektum a mezõn, az engedi-e hogy rálépjen a játékos?
 			if (itemobject != null) {
 				boolean res = itemobject.stepIn(_player);

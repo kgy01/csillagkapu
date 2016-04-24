@@ -22,9 +22,11 @@ public class Replicator extends Player {
 				// Lépés irányába esõ mezõ referenciájának elkérése
 				Field nextfield = engine.getField(position.add(_direction));
 				// Sikerült a léptetés
+				Field currentfield = engine.getField(position);
 				if (nextfield.stepIn(this)) {
+					nextfield = engine.getField(position.add(_direction));
 					// Lelépés a jelenlegi mezõrõl
-					engine.getField(position).unsetReplicator();
+					currentfield.unsetReplicator();
 					// Új pozíció beállítása
 					position = position.add(_direction);
 					direction = _direction;
