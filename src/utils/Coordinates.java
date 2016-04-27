@@ -1,6 +1,11 @@
 package utils;
 
 public class Coordinates {
+    public static final Coordinates UP = new Coordinates(0,1);
+    public static final Coordinates LEFT = new Coordinates(-1,0);
+    public static final Coordinates DOWN = new Coordinates(0,-1);
+    public static final Coordinates RIGHT = new Coordinates(1,0);
+
     // VÃ­zszintes helyzet (WEST-EAST irÃ¡nyban)
     int x;
 
@@ -37,7 +42,7 @@ public class Coordinates {
         this.x = x;
     }
     
-    // Egyenlõségvizsgálat
+    // Egyenlï¿½sï¿½gvizsgï¿½lat
     public boolean equals(Coordinates _ref) {
     	boolean igaz = true;
     	if (x != _ref.getX()) igaz = false;
@@ -50,12 +55,12 @@ public class Coordinates {
     	return "(" + x + "," + y + ")";
     }
     
-    // Két koordináta összeadás
+    // Kï¿½t koordinï¿½ta ï¿½sszeadï¿½s
     public Coordinates add(Coordinates _operand) {
     	return new Coordinates(this.x + _operand.getX(), this.y + _operand.getY());
     }
     
-    // Koordináta ellentetjére fordítása
+    // Koordinï¿½ta ellentetjï¿½re fordï¿½tï¿½sa
     public Coordinates negate() {
     	return new Coordinates(x * -1, y * -1);
     }

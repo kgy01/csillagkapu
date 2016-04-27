@@ -82,6 +82,7 @@ public class Replicator extends Player {
     	alive = false;
     	System.out.println("FELT ply:replicator pos:"+ position.toString());
     	engine.getField(position.add(direction)).setLandObject(null);
+		position = position.add(direction);
         //throw new ColonelIsDeadException();
     }
 	
