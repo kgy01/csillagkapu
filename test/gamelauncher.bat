@@ -1,2 +1,2 @@
 @echo off
-  java -classpath ..\target main.Main
+  java -classpath ..\target controller.Main

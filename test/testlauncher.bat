@@ -38,7 +38,7 @@ if not -%1-==-- (
   if not -%2-==-- (
     if exist %1_COMMANDS.txt (
       echo A %1 teszteset futtatasa...
-      java -classpath ..\target main.Main >>%2 <%1_COMMANDS.txt 2>&1
+      java -classpath ..\target controller.Main >>%2 <%1_COMMANDS.txt 2>&1
     )
     if not exist %1_COMMANDS.txt echo Nem erheto el a bemeneti fajl
   )
