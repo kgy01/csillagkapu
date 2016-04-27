@@ -3,5 +3,7 @@
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
     <file url="file://$PROJECT_DIR$/src/gameobjects/Bullet.java" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/src/gameobjects/Colonel.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/gameobjects/Field.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/gameobjects/Replicator.java" charset="windows-1252" />
   </component>
 </project>

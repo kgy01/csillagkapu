@@ -16,7 +16,7 @@ public class Colonel extends Player {
     	mychar = _mychar;
     }
 
-    public void shoot(int color) {
+    public void shoot(MyColor color) {
         if (isBackpackEmpty()) {
             Bullet bullet = new Bullet(position, direction, color, engine);
             bullet.start();

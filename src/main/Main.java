@@ -8,6 +8,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import static utils.MyColor.*;
+
 public class Main {
 	private static boolean ciklus = true;
 	private static Engine engine;
@@ -158,16 +160,16 @@ public class Main {
 					// J�t�kos kiv�laszt�sa
 					if (command[1].equals("colonel")) {
 						if (command[2].equals("blue"))
-							engine.colonel.shoot(Portal.BLUE);
+							engine.colonel.shoot(BLUE);
 						else if (command[2].equals("yellow"))
-							engine.colonel.shoot(Portal.YELLOW);
+							engine.colonel.shoot(YELLOW);
 						else throw new Exception("Fatal error!");
 					}
 					else if (command[1].equals("jaffa")) {
 						if (command[2].equals("red"))
-							engine.jaffa.shoot(Portal.RED);
+							engine.jaffa.shoot(RED);
 						else if (command[2].equals("green"))
-							engine.jaffa.shoot(Portal.GREEN);
+							engine.jaffa.shoot(GREEN);
 						else throw new Exception("Fatal error!");
 					}
 					else throw new Exception("Fatal error!");

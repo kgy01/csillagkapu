@@ -3,13 +3,12 @@ package gameobjects;
 import main.Engine;
 import utils.*;
 
+import static utils.MyColor.*;
+
 public class Portal extends ItemObject {
-    // Portal színek
-	public static final int BLUE = 0;
-	public static final int YELLOW = 1;
-	public static final int RED = 2;
-	public static final int GREEN = 3;
-    // Portálok
+    // Portal szï¿½nek
+
+    // Portï¿½lok
 	static Portal bluePortal;
     static Portal yellowPortal;
     static Portal redPortal;
@@ -18,7 +17,7 @@ public class Portal extends ItemObject {
     public static Engine engine;
     private Coordinates position;
     private Coordinates direction;
-    private int color;
+    private MyColor color;
 
     public Coordinates getPosition() {
         return position;
@@ -28,7 +27,7 @@ public class Portal extends ItemObject {
         return direction;
     }
 
-    public Portal(Field _field, Coordinates _position, Coordinates _direction, int _color) {
+    public Portal(Field _field, Coordinates _position, Coordinates _direction, MyColor _color) {
         super(_field);
     	position = _position;
         direction = _direction.negate();
@@ -52,7 +51,7 @@ public class Portal extends ItemObject {
         }
     }
     
-    private static Portal getOtherPortal(int color) {
+    private static Portal getOtherPortal(MyColor color) {
     	switch (color) {
         case BLUE:
         	return yellowPortal;
@@ -65,7 +64,7 @@ public class Portal extends ItemObject {
         }
     }
     
-    private static Portal getPortal(int color) {
+    private static Portal getPortal(MyColor color) {
     	switch (color) {
         case BLUE:
         	return bluePortal;
@@ -84,11 +83,11 @@ public class Portal extends ItemObject {
     	if (other == null)
     		return false;
     	if (direction.negate().equals(_player.getDirection()) && other.getFacingField().stepIn(_player)) {
-    		// Új pozíció beállítása a játékosnak
+    		// ï¿½j pozï¿½ciï¿½ beï¿½llï¿½tï¿½sa a jï¿½tï¿½kosnak
     		_player.setPosition(other.getPosition());
     		_player.setDirection(other.getDirection());
     		//_player.step(other.getDirection());
-    		// Ne törölje a mezõ a portált
+    		// Ne tï¿½rï¿½lje a mezï¿½ a portï¿½lt
     		field.skipItemObject();
     		return true;
     	}
@@ -101,7 +100,7 @@ public class Portal extends ItemObject {
     	if (other == null)
     		return false;
     	if (direction.negate().equals(_player.getDirection()) && other.getFacingField().place(_player, _item)) {
-    		// Ne törölje a mezõ a portált
+    		// Ne tï¿½rï¿½lje a mezï¿½ a portï¿½lt
     		_item.setField(other.getFacingField());
     		//field.skipItemObject();
     		return true;
@@ -115,7 +114,7 @@ public class Portal extends ItemObject {
     	if (other == null)
     		return false;
     	if (direction.negate().equals(_player.getDirection()) && other.getFacingField().pick(_player)) {
-    		// Ne törölje a mezõ a portált
+    		// Ne tï¿½rï¿½lje a mezï¿½ a portï¿½lt
     		field.skipItemObject();
     		return true;
     	}
@@ -129,17 +128,17 @@ public class Portal extends ItemObject {
     	if (other == null)
     		return true;
     	if (direction.negate().equals(_bul.getDirection()) && !other.getFacingField().hit(_bul)) {
-    		// Lövedék pozíciójának, irányának átállítása
+    		// Lï¿½vedï¿½k pozï¿½ciï¿½jï¿½nak, irï¿½nyï¿½nak ï¿½tï¿½llï¿½tï¿½sa
     		_bul.setPosition(other.getPosition());
     		_bul.setDirection(other.getDirection());
-    		// Ne törölje a mezõ a portált
+    		// Ne tï¿½rï¿½lje a mezï¿½ a portï¿½lt
     		//field.skipItemObject();
     		return false;
     	}
     	return true;
     }
     
-    // Portál nyitása
+    // Portï¿½l nyitï¿½sa
     public static void open(Bullet bul) {
     	Field newfield = engine.getField(bul.getPosition());
     	System.out.println("PORTAL OPENED col:" + bul.toString());
@@ -175,37 +174,37 @@ public class Portal extends ItemObject {
     	}   
     }
     
-    // Játékos teleportálása
+    // Jï¿½tï¿½kos teleportï¿½lï¿½sa
     public static void teleport(Player _player, Bullet _bul) {
     	Portal other = getPortal(_bul.getColor());
     	if (other == null)
     		return;
     	if (other.getFacingField().stepIn(_player)) {
-    		// Játékos ledobása a jelenlegi mezõjérõl
+    		// Jï¿½tï¿½kos ledobï¿½sa a jelenlegi mezï¿½jï¿½rï¿½l
     		engine.getField(_player.getPosition()).setPlayer(null);
-    		// Új pozíció beállítása a játékosnak
+    		// ï¿½j pozï¿½ciï¿½ beï¿½llï¿½tï¿½sa a jï¿½tï¿½kosnak
     		_player.setPosition(other.getPosition());
     		_player.setDirection(other.getDirection());
-    		// Ne törölje a mezõ a portált
+    		// Ne tï¿½rï¿½lje a mezï¿½ a portï¿½lt
     		System.out.println("TELEPORT ply:" + _player.toStringVerbose());
     		_player.step(other.getDirection());
     	}
     }
     
-    // Kiregisztrálja magát a portál a jelenlegi mezõjérõl:
+    // Kiregisztrï¿½lja magï¿½t a portï¿½l a jelenlegi mezï¿½jï¿½rï¿½l:
     public void remove() {
     	field.setItemObject(null);
     }
     
     public String toString() {
 		switch (color) {
-		case Portal.BLUE:
+		case BLUE:
 			return "[";
-		case Portal.YELLOW:
+		case YELLOW:
 			return "]";
-		case Portal.RED:
+		case RED:
 			return "{";
-		case Portal.GREEN:
+		case GREEN:
 			return "}";
 		}
 		return "";
@@ -213,13 +212,13 @@ public class Portal extends ItemObject {
     
     public String toStringVerbose() {
 		switch (color) {
-		case Portal.BLUE:
+		case BLUE:
 			return "blue";
-		case Portal.YELLOW:
+		case YELLOW:
 			return "yellow";
-		case Portal.RED:
+		case RED:
 			return "red";
-		case Portal.GREEN:
+		case GREEN:
 			return "green";
 		}
 		return "";

@@ -2,15 +2,16 @@ package gameobjects;
 
 import main.Engine;
 import utils.Coordinates;
+import utils.MyColor;
 
 public class Bullet {
 	// Aktuális pozíció
 	private Coordinates position;
 	private Coordinates direction;
 	private Engine engine;
-	private int color;
+	private MyColor color;
 	
-	public Bullet(Coordinates _position, Coordinates _direction, int _color, Engine _engine) {
+	public Bullet(Coordinates _position, Coordinates _direction, MyColor _color, Engine _engine) {
 		position = _position;
 		direction = _direction;
 		color = _color;
@@ -29,20 +30,20 @@ public class Bullet {
 	
 	public String toString() {
 		switch (color) {
-		case Portal.BLUE:
+		case BLUE:
 			return "blue";
-		case Portal.YELLOW:
+		case YELLOW:
 			return "yellow";
-		case Portal.RED:
+		case RED:
 			return "red";
-		case Portal.GREEN:
+		case GREEN:
 			return "green";
 		}
 		return "";
 	}
 	
 	// Szín lekérdezése
-	public int getColor() {
+	public MyColor getColor() {
 		return color;
 	}
 	
