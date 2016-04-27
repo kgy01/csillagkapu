@@ -16,11 +16,12 @@ public class Colonel extends Player {
     	mychar = _mychar;
     }
 
-    public void shoot(MyColor color) {
+    public Coordinates shoot(MyColor color) {
         if (isBackpackEmpty()) {
             Bullet bullet = new Bullet(position, direction, color, engine);
-            bullet.start();
+            return bullet.start();
         }
+		return null;
     }
     
 

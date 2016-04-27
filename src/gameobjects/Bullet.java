@@ -18,7 +18,7 @@ public class Bullet {
 		engine = _engine;
 	}
 	
-	public void start() {
+	public Coordinates start() {
 		position = position.add(direction);
 		Field nextfield = engine.getField(position);
 		while (!nextfield.hit(this)) {
@@ -26,6 +26,7 @@ public class Bullet {
 			nextfield = engine.getField(position);
 		}
 		System.out.println("BULLET DISPOSED pos:" + position.toString() + " col:" + toString());
+		return position;
 	}
 	
 	public String toString() {
