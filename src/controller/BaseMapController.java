@@ -24,16 +24,16 @@ public class BaseMapController {
         fieldViews = new IFieldView[fieldsSize.getX()][fieldsSize.getY()];
 
         //Bányászás
-        try {
+        //try {
             for (int y = 0; y < fieldsSize.getY(); y++) {
                 for (int x = 0; x < fieldsSize.getX(); x++) {
                     LandObject current = MainController.getInstance().engine.getField(new Coordinates(x, y)).getLandObject();
                     fieldViews[x][y] = baseMapView.createFieldView(new Coordinates(x, y), getLandObjectType(current));
                 }
             }
-        } catch(Exception e){
+        /*} catch(Exception e){
             System.out.println(e.getMessage() + " : Banyaszasbeli vagy invalid map formatum problema");
-        }
+        }*/
     }
 
     public void fieldChange(Coordinates positsion){
@@ -43,7 +43,9 @@ public class BaseMapController {
 
     //Bányászás
     public LandObjectType getLandObjectType(LandObject obj){
-
+        if(obj == null){
+            return FLOOR;
+        }
         if(obj.getClass().equals(Pit.class)){
             return PIT;
         }

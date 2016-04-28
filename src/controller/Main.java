@@ -4,6 +4,7 @@ import model.ZPM;
 import utils.*;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -49,7 +50,7 @@ public class Main {
             }
 			if (command[0].equals("loadgame")) {
 				try {
-					engine.init(command[1]);
+					engine.init(new File(command[1]));
 				}
 				catch(ArrayIndexOutOfBoundsException ex) {
 					System.out.println("loadgame [*.txt]");

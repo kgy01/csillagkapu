@@ -1,10 +1,6 @@
 package controller;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -22,13 +18,13 @@ public class Loader {
 	private Field[][] fields;
 	private Coordinates fieldSize;
 	
-	public Loader(Engine _engine, String _filename) {
+	public Loader(Engine _engine, File file) {
 		engine = _engine;
 		// Sorok t�rol�s�ra ArrayList
 		List<String> rows = new ArrayList<String>();
 		//Sorok beolvas�sa
 		try {
-			BufferedReader bfreader = new BufferedReader(new InputStreamReader(new FileInputStream(_filename)));
+			BufferedReader bfreader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 			String row;
 			while ((row = bfreader.readLine()) != null) {
 				rows.add(row);

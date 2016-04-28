@@ -3,6 +3,8 @@ package controller;
 import utils.*;
 import model.*;
 
+import java.io.File;
+
 public class Engine {
 	// Referncia a j�t�kosokra
 	public Colonel colonel;
@@ -13,7 +15,7 @@ public class Engine {
 	public Engine() {
 	}
 	
-	public void init(String _palya) {
+	public void init(File _palya) {
 		// �j bet�lt� l�trehoz�sa
 		loader = new Loader(this, _palya);
 		// J�t�kosok lek�rdez�se

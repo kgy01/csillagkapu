@@ -2,6 +2,8 @@ package controller;
 import controller.ViewInterfacesAndEnums.IMainView;
 
 import java.awt.event.KeyEvent;
+import java.io.File;
+
 /**
  * Created by MR.ESSIG on 4/27/2016.
  */
@@ -40,11 +42,11 @@ public class MainController {
         playerController.replicatorStepEventHandler();
     }
 
-    public void setMainView(IMainView _mainView, String _mapPath){
+    public void setMainView(IMainView _mainView, File map){
         mainView = _mainView;
 
         engine = new Engine();
-        engine.init(_mapPath);
+        engine.init(map);
 
         playerController = new PlayerController(mainView.getPlayerView());
         animationController = new AnimationController(mainView.getAnimationView());
