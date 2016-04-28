@@ -1,12 +1,13 @@
 package view;
 
 import controller.ViewInterfacesAndEnums.IPlayerView;
+import javafx.scene.canvas.Canvas;
 import utils.Coordinates;
 
 /**
  * Created by MR.ESSIG on 4/28/2016.
  */
-public class PlayerView implements IPlayerView {
+public class PlayerView extends Canvas implements IPlayerView {
     private MainView mainView;
 
     PlayerView(MainView _mainView){

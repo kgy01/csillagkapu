@@ -15,6 +15,13 @@ public class PlayerController {
 
     public PlayerController(IPlayerView _playerView){
         playerView = _playerView;
+        Engine engine = MainController.getInstance().engine;
+        Colonel jaffa = engine.jaffa;
+        Colonel colonel = engine.colonel;
+        Replicator replicator = MainController.getInstance().engine.replicator;
+        playerView.drawJ(jaffa.getPosition(), jaffa.getDirection(), !jaffa.isBackpackEmpty());
+        playerView.drawC(colonel.getPosition(), colonel.getDirection(), !colonel.isBackpackEmpty());
+        playerView.drawR(replicator.getPosition(), replicator.getDirection());
     }
 
     public boolean playerEventHandler(KeyEvent key){
@@ -92,6 +99,7 @@ public class PlayerController {
             playerView.drawR(replicator.getPosition(), replicator.getDirection());
             if(!replicator.isAlive()){
                 MainController.getInstance().baseMapController.fieldChange(replicator.getPosition());
+                playerView.drawR(null,null);
             }
         }
     }

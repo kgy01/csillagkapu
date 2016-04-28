@@ -35,6 +35,10 @@ public class Engine {
 		//Logger.outFunction("<--[Engine:]field");
 		return (loader.getFields())[co.getX()][co.getY()];
 	}
+
+	public Field[][] getFields(){
+		return loader.getFields();
+	}
 	
 	/*public void gameOver() {
         Logger.inFunction();

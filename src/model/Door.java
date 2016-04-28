@@ -1,10 +1,12 @@
 package model;
 
+import controller.MainController;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class Door extends LandObject {
-    private boolean isOpen = false;
+    public boolean isOpen = false;
     private char mychar;
     private static Map<String,Door> doors = new HashMap<String,Door>();
 
@@ -79,7 +81,10 @@ public class Door extends LandObject {
 
     public void open(){
     	System.out.println("Door:" + mychar + " opened");
-        isOpen = true;
+        if(isOpen != true) {
+            isOpen = true;
+            MainController.getInstance().baseMapController.doorStateChange(true);
+        }
     }
 
     /**
@@ -88,7 +93,10 @@ public class Door extends LandObject {
     
     public void close(){
         System.out.println("Door:" + mychar + " closed");
-        isOpen = false;
+        if(isOpen == true) {
+            isOpen = false;
+            MainController.getInstance().baseMapController.doorStateChange(false);
+        }
     }
 
     /**

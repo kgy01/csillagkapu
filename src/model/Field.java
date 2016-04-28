@@ -1,34 +1,36 @@
 package model;
 
 
+import controller.MainController;
+
 public class Field {
-	// Tereptárgy
+	// Tereptï¿½rgy
 	private LandObject landobject;
-	// Mozgatható tárgy
+	// Mozgathatï¿½ tï¿½rgy
 	private ItemObject itemobject;
 	private Player player;
 	private Replicator replicator;
-	// Figyelmeztetjük a mezõt, hogy ne törölje az ItemObjectjét
+	// Figyelmeztetjï¿½k a mezï¿½t, hogy ne tï¿½rï¿½lje az ItemObjectjï¿½t
 	private boolean removeItemObject = true;
 	
 	/*public Field(LandObject _landobject) {
 		landobject = _landobject;
 	}*/
 	
-	// Játékos a mezõre lép
+	// Jï¿½tï¿½kos a mezï¿½re lï¿½p
 	public boolean stepIn(Player _player){
-		// Van-e másik játékos a mezõn?
+		// Van-e mï¿½sik jï¿½tï¿½kos a mezï¿½n?
 		if (player == null || _player.toString().equals("?")) {
-			// Ha van mozgatható objektum a mezõn, az engedi-e hogy rálépjen a játékos?
+			// Ha van mozgathatï¿½ objektum a mezï¿½n, az engedi-e hogy rï¿½lï¿½pjen a jï¿½tï¿½kos?
 			if (itemobject != null) {
 				boolean res = itemobject.stepIn(_player);
 				if (res && removeItemObject)
-					itemobject = null;
+					setItemObject(null);
 				removeItemObject = true;
 				return res;
 			}
 			else {
-				// Ha nincs mozgatható objektum, de van tereptárgy, az engedi-e hogy rálépjen a játékos?
+				// Ha nincs mozgathatï¿½ objektum, de van tereptï¿½rgy, az engedi-e hogy rï¿½lï¿½pjen a jï¿½tï¿½kos?
 				if (landobject != null) {
 					return landobject.stepIn(_player);
 				}
@@ -38,16 +40,16 @@ public class Field {
 			}
 		}
 		else {
-			// Van másik játékos a mezõn
+			// Van mï¿½sik jï¿½tï¿½kos a mezï¿½n
 			return false;
 		}
 	}
 	
-	// Játékos lelép a mezõrõl
+	// Jï¿½tï¿½kos lelï¿½p a mezï¿½rï¿½l
 	public boolean stepOut(Player _player) {
-		// Játékos leregisztrálása
+		// Jï¿½tï¿½kos leregisztrï¿½lï¿½sa
 		player = null;
-		// Ha van tereptárgy, akkor szólunk neki, hogy lelépett róla a játékos
+		// Ha van tereptï¿½rgy, akkor szï¿½lunk neki, hogy lelï¿½pett rï¿½la a jï¿½tï¿½kos
 		if (landobject != null) {
 			return landobject.stepOut(_player);
 		}
@@ -58,12 +60,12 @@ public class Field {
 	
 	public boolean place(Player _player, ItemObject _item) {
 		//Logger.inFunction("-->[Field:]place(ItemObject)");
-		// Van-e másik játékos a mezõn?
+		// Van-e mï¿½sik jï¿½tï¿½kos a mezï¿½n?
 		if (player == null) {
-			// Ha van mozgatható objektum a mezõn, az engedi-e hogy rárakjon valamit a játékos?
+			// Ha van mozgathatï¿½ objektum a mezï¿½n, az engedi-e hogy rï¿½rakjon valamit a jï¿½tï¿½kos?
 			if (itemobject != null) {
 				if (itemobject.place(_player, _item)) {
-					// Ha sikerül a letétel, akkor értesíteni kell a landobjectet.
+					// Ha sikerï¿½l a letï¿½tel, akkor ï¿½rtesï¿½teni kell a landobjectet.
 					if (landobject != null)
 						if (landobject.place(_player, itemobject))
 							_item.setField(this);
@@ -72,25 +74,25 @@ public class Field {
 				return false;
 			}
 			else {
-				// Ha nincs mozgatható objektum, de van tereptárgy, az engedi-e hogy rárakjon valamit a játékos?
+				// Ha nincs mozgathatï¿½ objektum, de van tereptï¿½rgy, az engedi-e hogy rï¿½rakjon valamit a jï¿½tï¿½kos?
 				if (landobject != null) {
 					if (landobject.place(_player, _item)) {
 						if (removeItemObject)
-							itemobject = _item;
+							setItemObject(_item);
 						removeItemObject = true;
 						return true;
 					}
 					return false;
 				}
 				else {
-					itemobject = _item;
+					setItemObject(_item);
 					_item.setField(this);
 					return true;
 				}
 			}
 		}
 		else {
-			// Van játékos a mezõn
+			// Van jï¿½tï¿½kos a mezï¿½n
 			return false;
 		}		
 	}
@@ -100,9 +102,9 @@ public class Field {
 		if (player == null) {
 			if (itemobject != null) {
 				if (itemobject.pick(_player)) {
-					// Ha sikerült a felvétel, akkor itemobject nulla lesz és értesítjük a landobject-et, hogy elvettek felöle valamit
+					// Ha sikerï¿½lt a felvï¿½tel, akkor itemobject nulla lesz ï¿½s ï¿½rtesï¿½tjï¿½k a landobject-et, hogy elvettek felï¿½le valamit
 					if (removeItemObject)
-						itemobject = null;
+						setItemObject(null);
 					removeItemObject = true;
 					if (landobject != null) {
 						landobject.pick(_player);
@@ -123,7 +125,7 @@ public class Field {
 		}
 	}
 	
-	// Függvény a mezõ karakteres kiírásához
+	// Fï¿½ggvï¿½ny a mezï¿½ karakteres kiï¿½rï¿½sï¿½hoz
 	@Override
 	public String toString() {
 		if (replicator != null)
@@ -148,17 +150,17 @@ public class Field {
 		}
 	}
 	
-	// Versenyzõ beállítása a mezõre
+	// Versenyzï¿½ beï¿½llï¿½tï¿½sa a mezï¿½re
 	public void setPlayer(Player _player) {
 		player = _player;
 	}
 	
-	// Üres-e a mezõ (elhelyezhetõ-e rá új ZPM
+	// ï¿½res-e a mezï¿½ (elhelyezhetï¿½-e rï¿½ ï¿½j ZPM
 	public boolean isEmpty() {
 		return (player == null && itemobject == null && landobject == null);
 	}
 	
-	// Meglõjük lövedékkel a mezõt
+	// Meglï¿½jï¿½k lï¿½vedï¿½kkel a mezï¿½t
 	public boolean hit(Bullet bul) {
 		if (replicator != null)
 			return replicator.hit(bul);
@@ -182,30 +184,33 @@ public class Field {
 		}
 	}
 	
-	// Replicator beregisztrálása az adott mezõre
+	// Replicator beregisztrï¿½lï¿½sa az adott mezï¿½re
 	public void setReplicator(Replicator _replicator) {
 		replicator = _replicator;
 	}
-	// Replicator kiregisztrálása az adott mezõrõl
+	// Replicator kiregisztrï¿½lï¿½sa az adott mezï¿½rï¿½l
 	public void unsetReplicator() {
 		replicator = null;
 	}
-	// ItemObject-et ne törölje
+	// ItemObject-et ne tï¿½rï¿½lje
 	public void skipItemObject() {
 		removeItemObject = false; 
 	}
 	
-	// ItemObject eltávolítása
+	// ItemObject eltï¿½volï¿½tï¿½sa
 	public void setItemObject(ItemObject _item) {
 		itemobject = _item;
 	}
 	
-	// ItemObject eltávolítása
+	// ItemObject eltï¿½volï¿½tï¿½sa
 	public void setLandObject(LandObject _land) {
 		landobject = _land;
 	}
 
 	public LandObject getLandObject() {
 		return landobject;
+	}
+	public ItemObject getItemObject() {
+		return itemobject;
 	}
 }

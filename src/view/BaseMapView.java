@@ -2,6 +2,7 @@ package view;
 
 import controller.ViewInterfacesAndEnums.IBaseMapView;
 import controller.ViewInterfacesAndEnums.IFieldView;
+import controller.ViewInterfacesAndEnums.ItemObjectType;
 import controller.ViewInterfacesAndEnums.LandObjectType;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -33,15 +34,12 @@ public class BaseMapView extends GridPane implements IBaseMapView {
             for(int x = 0; x < width; x++){
                 matrix[x][y] = new Canvas(canvasSize,canvasSize);
                 add(matrix[x][y],x,y);
-                GraphicsContext gc = matrix[x][y].getGraphicsContext2D();
-                gc.clearRect(0,0,canvasSize, canvasSize);
-                gc.fillOval(0, 0, 800.0/11.0, 800.0/11.0);
             }
         }
     }
 
     @Override
-    public IFieldView createFieldView(Coordinates positsion, LandObjectType type) {
-        return new FieldView(matrix[positsion.getX()][positsion.getY()],type);
+    public IFieldView createFieldView(Coordinates positsion, LandObjectType type, ItemObjectType itemType) {
+        return new FieldView(matrix[positsion.getX()][positsion.getY()],type,itemType);
     }
 }

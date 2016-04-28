@@ -7,5 +7,5 @@ import utils.Coordinates;
  */
 public interface IBaseMapView {
     public void createCanvasMatrix(int width, int height);
-    public IFieldView createFieldView(Coordinates positsion, LandObjectType type);
+    public IFieldView createFieldView(Coordinates positsion, LandObjectType type,ItemObjectType itemType);
 }

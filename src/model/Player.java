@@ -80,22 +80,29 @@ public class Player {
     
     // T�rgy felv�tele az el�tt�nk lev� mez�r�l
     public void pick() {
-    	Field nextfield = engine.getField(new Coordinates(position.getX() + direction.getX(), position.getY() + direction.getY()));
-    	if (!nextfield.pick(this))
-    		System.out.println("FAILED");
+		Coordinates  nextPos =new Coordinates(position.getX() + direction.getX(), position.getY() + direction.getY());
+    	Field nextfield = engine.getField(nextPos);
+    	if (!nextfield.pick(this)) {
+			System.out.println("FAILED");
+		}else{
+			MainController.getInstance().baseMapController.fieldItemChange(nextPos);
+		}
     }
     
     // T�rgy elhelyez�se a j�t�kos el�tt l�v� mez�n
     public void place() {
-    	Field nextfield = engine.getField(new Coordinates(position.getX() + direction.getX(), position.getY() + direction.getY()));
-    	if (nextfield.place(this, backPack)) {
-    		System.out.println("OK typ:" + backPack.toStringVerbose());
-    		// A letett doboznak be�ll�tjuk a mez�t
-    		//backPack.setField(nextfield);
-    		backPack = null;
-    		return;
-    	}
-    	System.out.println("FAILED");
+		Coordinates  nextPos =new Coordinates(position.getX() + direction.getX(), position.getY() + direction.getY());
+    	Field nextfield = engine.getField(nextPos);
+    	if (!nextfield.place(this, backPack)) {
+			System.out.println("FAILED");
+    	} else {
+			System.out.println("OK typ:" + backPack.toStringVerbose());
+			// A letett doboznak be�ll�tjuk a mez�t
+			//backPack.setField(nextfield);
+			backPack = null;
+			MainController.getInstance().baseMapController.fieldItemChange(nextPos);
+		}
+
     }
 	
 	// Poz�ci� lek�rdez�se:
