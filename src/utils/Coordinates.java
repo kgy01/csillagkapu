@@ -1,9 +1,9 @@
 package utils;
 
 public class Coordinates {
-    public static final Coordinates UP = new Coordinates(0,1);
+    public static final Coordinates UP = new Coordinates(0,-1);
     public static final Coordinates LEFT = new Coordinates(-1,0);
-    public static final Coordinates DOWN = new Coordinates(0,-1);
+    public static final Coordinates DOWN = new Coordinates(0,1);
     public static final Coordinates RIGHT = new Coordinates(1,0);
 
     // Vízszintes helyzet (WEST-EAST irányban)

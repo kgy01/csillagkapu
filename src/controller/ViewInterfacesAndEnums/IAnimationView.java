@@ -1,4 +1,4 @@
-package controller.ViewInterfaces;
+package controller.ViewInterfacesAndEnums;
 
 import utils.Coordinates;
 import utils.MyColor;
@@ -8,5 +8,5 @@ import utils.MyColor;
  */
 public interface IAnimationView {
     public void shoot(Coordinates src, Coordinates dst, MyColor color);
-    public void openPortal(Coordinates positsion, MyColor color);
+    public void openPortal(Coordinates positsion,Coordinates direction,  MyColor color);
 }

@@ -1,6 +1,5 @@
 package controller;
-import utils.Coordinates;
-import utils.MyColor;
+import controller.ViewInterfacesAndEnums.IMainView;
 
 import java.awt.event.KeyEvent;
 /**
@@ -8,6 +7,7 @@ import java.awt.event.KeyEvent;
  */
 public class MainController {
     private static MainController instance = null;
+    private IMainView mainView;
     private MainController(){}
 
     public Engine engine;
@@ -24,12 +24,31 @@ public class MainController {
 
     public void keyBoardEventHandler(KeyEvent key){
         if(animationController.animationEventHandler(key) || playerController.playerEventHandler(key)){
-            return;
+                if(!engine.jaffa.isAlive() && engine.colonel.isAlive()){
+                    mainView.gameOver("COLONEL");
+                }
+                if(engine.jaffa.isAlive() && !engine.colonel.isAlive()) {
+                    mainView.gameOver("JAFFA");
+                }
+                if(!engine.jaffa.isAlive() && !engine.colonel.isAlive()) {
+                    mainView.gameOver("NOBODY");
+                }
         }
     }
 
     public void replicatorStepEventHandler(){
+        playerController.replicatorStepEventHandler();
+    }
 
+    public void setMainView(IMainView _mainView, String _mapPath){
+        mainView = _mainView;
+
+        engine = new Engine();
+        engine.init(_mapPath);
+
+        playerController = new PlayerController(mainView.getPlayerView());
+        animationController = new AnimationController(mainView.getAnimationView());
+        baseMapController = new BaseMapController(mainView.getBaseMapView());
     }
 
 }

@@ -23,6 +23,10 @@ public class Engine {
 		// Port�lnak engine be�ll�t�sa:
 		Portal.engine = this;
 	}
+
+	public Coordinates getFieldsSize(){
+		return loader.getFiledSize();
+	}
 	
 	public Field getField(Coordinates co) {
 		//Logger.inFunction("-->[Engine:]getField(Coordinates)");

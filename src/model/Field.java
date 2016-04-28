@@ -204,4 +204,8 @@ public class Field {
 	public void setLandObject(LandObject _land) {
 		landobject = _land;
 	}
+
+	public LandObject getLandObject() {
+		return landobject;
+	}
 }

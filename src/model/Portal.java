@@ -1,6 +1,9 @@
 package model;
 
+import controller.AnimationController;
 import controller.Engine;
+import controller.Main;
+import controller.MainController;
 import utils.*;
 
 import static utils.MyColor.*;
@@ -140,6 +143,7 @@ public class Portal extends ItemObject {
     
     // Port�l nyit�sa
     public static void open(Bullet bul) {
+		AnimationController animationController = MainController.getInstance().animationController;
     	Field newfield = engine.getField(bul.getPosition());
     	System.out.println("PORTAL OPENED col:" + bul.toString());
     	switch (bul.getColor()) {
@@ -148,6 +152,7 @@ public class Portal extends ItemObject {
     			bluePortal.remove();
     		}
     		bluePortal = new Portal(newfield,bul.getPosition(),bul.getDirection(), BLUE);
+			animationController.portalEventHandler(bul.getPosition(),bul.getDirection(),BLUE);
     		newfield.setItemObject(bluePortal);
     		break;
     	case YELLOW:
@@ -155,6 +160,7 @@ public class Portal extends ItemObject {
     			yellowPortal.remove();
     		}
     		yellowPortal = new Portal(newfield,bul.getPosition(),bul.getDirection(), YELLOW);
+			animationController.portalEventHandler(bul.getPosition(),bul.getDirection(),YELLOW);
     		newfield.setItemObject(yellowPortal);
     		break;
     	case RED:
@@ -162,6 +168,7 @@ public class Portal extends ItemObject {
     			redPortal.remove();
     		}
     		redPortal = new Portal(newfield,bul.getPosition(),bul.getDirection(), RED);
+			animationController.portalEventHandler(bul.getPosition(),bul.getDirection(),RED);
     		newfield.setItemObject(redPortal);
     		break;
 		case GREEN:
@@ -169,6 +176,7 @@ public class Portal extends ItemObject {
 				greenPortal.remove();
 			}
 			greenPortal = new Portal(newfield,bul.getPosition(),bul.getDirection(), GREEN);
+			animationController.portalEventHandler(bul.getPosition(),bul.getDirection(),GREEN);
 			newfield.setItemObject(greenPortal);
 			break;
     	}   

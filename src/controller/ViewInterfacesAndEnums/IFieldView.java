@@ -1,4 +1,4 @@
-package controller.ViewInterfaces;
+package controller.ViewInterfacesAndEnums;
 
 /**
  * Created by MR.ESSIG on 4/27/2016.

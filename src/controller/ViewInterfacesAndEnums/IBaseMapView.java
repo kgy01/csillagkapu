@@ -1,4 +1,4 @@
-package controller.ViewInterfaces;
+package controller.ViewInterfacesAndEnums;
 
 import utils.Coordinates;
 

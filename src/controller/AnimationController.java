@@ -1,7 +1,8 @@
 package controller;
 
-import controller.ViewInterfaces.IAnimationView;
+import controller.ViewInterfacesAndEnums.IAnimationView;
 import model.Colonel;
+import utils.Coordinates;
 import utils.MyColor;
 
 import java.awt.event.KeyEvent;
@@ -11,6 +12,10 @@ import java.awt.event.KeyEvent;
  */
 public class AnimationController {
     private IAnimationView animationView;
+
+    public AnimationController(IAnimationView _animationView){
+        animationView = _animationView;
+    }
 
     public boolean animationEventHandler(KeyEvent key){
         Engine engine = MainController.getInstance().engine;
@@ -33,5 +38,9 @@ public class AnimationController {
                 return false;
         }
         return true;
+    }
+
+    public void portalEventHandler(Coordinates positsion, Coordinates direction, MyColor color){
+        animationView.openPortal(positsion,direction,color);
     }
 }
