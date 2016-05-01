@@ -25,6 +25,7 @@ public class MainView extends Application implements IMainView{
     private Scene scene;
     private Stage myStage;
     private Menu menu = new Menu(this);
+    private AnimationTimer animationTimer;
 
     private BaseMapView baseMapView;
     private AnimationView animationView;
@@ -52,7 +53,7 @@ public class MainView extends Application implements IMainView{
 
         menu.createMenu();
 
-        AnimationTimer animationTimer = new AnimationTimer() {
+        animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 animationView.animate();
@@ -61,6 +62,8 @@ public class MainView extends Application implements IMainView{
 
         animationTimer.start();
     }
+
+
 
 
     public static void main(String[] args) {
