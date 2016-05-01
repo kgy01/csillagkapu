@@ -4,9 +4,7 @@ import controller.ViewInterfacesAndEnums.IFieldView;
 import controller.ViewInterfacesAndEnums.ItemObjectType;
 import controller.ViewInterfacesAndEnums.LandObjectType;
 import javafx.scene.canvas.Canvas;
-import model.Scale;
-import model.SpecialWall;
-import view.Drawers.*;
+
 
 
 /**
@@ -25,25 +23,25 @@ public class FieldView implements IFieldView {
     public void draw(ItemObjectType itemType) {
         switch (myType){
             case PIT:
-                PitDrawer.Draw(myCanvas.getGraphicsContext2D(),myCanvas.getWidth(),myCanvas.getHeight());
+                //PIT Rajzolas
                 break;
             case CLOSEDDOOR:
-                DoorDrawer.Draw(myCanvas.getGraphicsContext2D(),myCanvas.getWidth(),myCanvas.getHeight(),itemType, true);
+                //CLOSEDDOOR Rajzolas
                 break;
             case OPENEDDOOR:
-                DoorDrawer.Draw(myCanvas.getGraphicsContext2D(),myCanvas.getWidth(),myCanvas.getHeight(),itemType, false);
+                //stb
                 break;
             case SCALE:
-                ScaleDrawer.Draw(myCanvas.getGraphicsContext2D(),myCanvas.getWidth(),myCanvas.getHeight(),itemType);
+                //stb
                 break;
             case WALL:
-                WallDrawer.Draw(myCanvas.getGraphicsContext2D(),myCanvas.getWidth(),myCanvas.getHeight());
+                //stb
                 break;
             case SPECIALWALL:
-                SpecialWallDrawer.Draw(myCanvas.getGraphicsContext2D(),myCanvas.getWidth(),myCanvas.getHeight());
+                //stb
                 break;
             case FLOOR:
-                FloorDrawer.Draw(myCanvas.getGraphicsContext2D(),myCanvas.getWidth(),myCanvas.getHeight(),itemType);
+                //stb
                 break;
             default:
                 System.out.println("Gond van a kirajzolasnal");

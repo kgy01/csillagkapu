@@ -5,8 +5,10 @@ import controller.ViewInterfacesAndEnums.IAnimationView;
 import controller.ViewInterfacesAndEnums.IBaseMapView;
 import controller.ViewInterfacesAndEnums.IMainView;
 import controller.ViewInterfacesAndEnums.IPlayerView;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -19,13 +21,14 @@ public class MainView extends Application implements IMainView{
     private Integer defaultHeight = 800;
     private BorderPane root = new BorderPane();
     private MainController mainController;
+    private Group mapGroup = new Group();
     private Scene scene;
     private Stage myStage;
     private Menu menu = new Menu(this);
 
-    private PlayerView playerView = new PlayerView(this);
-    private AnimationView animationView = new AnimationView(this);
-    private BaseMapView baseMapView = new BaseMapView(this);
+    private BaseMapView baseMapView;
+    private AnimationView animationView;
+    private PlayerView playerView;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -39,7 +42,24 @@ public class MainView extends Application implements IMainView{
         primaryStage.setHeight(defaultHeight);
         primaryStage.setResizable(false);
 
+
+        baseMapView = new BaseMapView(this);
+        animationView = new AnimationView(this);
+        playerView = new PlayerView(this);
+
+        mapGroup.getChildren().addAll(baseMapView,animationView,playerView);
+        root.setCenter(mapGroup);
+
         menu.createMenu();
+
+        AnimationTimer animationTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                animationView.animate();
+            }
+        };
+
+        animationTimer.start();
     }
 
 
@@ -72,7 +92,4 @@ public class MainView extends Application implements IMainView{
         return myStage;
     }
 
-    public BorderPane getRoot(){
-        return root;
-    }
 }

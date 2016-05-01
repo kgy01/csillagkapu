@@ -5,9 +5,7 @@ import controller.ViewInterfacesAndEnums.IFieldView;
 import controller.ViewInterfacesAndEnums.ItemObjectType;
 import controller.ViewInterfacesAndEnums.LandObjectType;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.RowConstraints;
+
 import javafx.scene.layout.GridPane;
 import utils.Coordinates;
 
@@ -20,7 +18,7 @@ public class BaseMapView extends GridPane implements IBaseMapView {
 
     public BaseMapView(MainView _mainView){
         mainView = _mainView;
-        mainView.getRoot().setCenter(this);
+
         setHgap(-1);
         setVgap(-1);
     }

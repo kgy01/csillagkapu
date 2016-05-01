@@ -12,6 +12,8 @@ public class PlayerView extends Canvas implements IPlayerView {
 
     PlayerView(MainView _mainView){
         mainView = _mainView;
+        setWidth(mainView.getStage().getWidth());
+        setHeight(mainView.getStage().getHeight());
     }
     @Override
     public void drawJ(Coordinates positsion, Coordinates direction, boolean isBox) {

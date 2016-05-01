@@ -9,4 +9,5 @@ import utils.MyColor;
 public interface IAnimationView {
     public void shoot(Coordinates src, Coordinates dst, MyColor color);
     public void openPortal(Coordinates positsion,Coordinates direction,  MyColor color);
+    public void animate();
 }
