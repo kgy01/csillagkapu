@@ -23,6 +23,7 @@ public class AnimationView extends Canvas implements IAnimationView {
 
     private MainView mainView;
     private ArrayList<ShootAnimation> shoots = new ArrayList<>();
+    private ArrayList<PortalAnimation> portals = new ArrayList<>();
 
     long animationCounter = 0;
 
@@ -41,7 +42,26 @@ public class AnimationView extends Canvas implements IAnimationView {
 
     @Override
     public void openPortal(Coordinates positsion, Coordinates direction, MyColor color) {
+        if(positsion != null && direction != null){
 
+            for(int i = 0; i < portals.size(); i++){
+                PortalAnimation current = portals.get(i);
+                if(current.positsion.getX() == positsion.getX() && current.positsion.getY() == positsion.getY()){
+                    portals.remove(current);
+                    i--;
+                    continue;
+                }
+
+                if(portals.get(i).color == color){
+                    if(current.state != 1){
+                        current.state = 1;
+                        current.animation_number = 0;
+                    }
+                }
+            }
+            portals.add(new PortalAnimation(positsion,direction,color));
+
+        }
     }
 
     @Override
@@ -53,20 +73,32 @@ public class AnimationView extends Canvas implements IAnimationView {
             MainController.getInstance().replicatorStepEventHandler();
         }
 
-        if(animationCounter%3 == 0) {
+        if(animationCounter%6 == 0) {
             gc.clearRect(0,0,getWidth(),getHeight());
 
             for (int i = 0; i < shoots.size(); i++) {
                 ShootAnimation current = shoots.get(i);
-                gc.setGlobalAlpha(1.0 - 1.0/10.0*((double)current.animation_number)); // 0.5s-ig animal kb
+                gc.setGlobalAlpha(1.0 - 1.0/5.0*((double)current.animation_number)); // 0.5s-ig animal kb
                 current.animation_number++;
                 gc.drawImage(current.leaser,
                         current.drawStartCoordinates.getX()*fieldCanvasSize + current.dir.getX()*fieldCanvasSize/2.0,
                         current.drawStartCoordinates.getY()*fieldCanvasSize + current.dir.getY()*fieldCanvasSize/2.0);
-                if(current.animation_number >= 10){
+                if(current.animation_number >= 5){
                     shoots.remove(current);
                     i--;
                 }
+            }
+            gc.setGlobalAlpha(1.0);
+
+            for(int i = 0; i < portals.size(); i++){
+                PortalAnimation current = portals.get(i);
+                Image currentImage;
+                if((currentImage = current.getImage()) == null){
+                    portals.remove(current);
+                    i--;
+                    continue;
+                }
+                gc.drawImage(currentImage, current.positsion.getX()*fieldCanvasSize, current.positsion.getY()*fieldCanvasSize);
             }
 
         }
@@ -80,7 +112,8 @@ public class AnimationView extends Canvas implements IAnimationView {
         public Coordinates dir;
         public Coordinates drawStartCoordinates;
         public int animation_number = 0;
-        public Image leaser;public ShootAnimation(Coordinates _src, Coordinates _dst, MyColor _color){
+        public Image leaser;
+        public ShootAnimation(Coordinates _src, Coordinates _dst, MyColor _color){
             src = _src;
             dst = _dst;
             double fieldCanvasSize = ((BaseMapView)(mainView.getBaseMapView())).getCanvasSize();
@@ -135,6 +168,73 @@ public class AnimationView extends Canvas implements IAnimationView {
     }
 
     private class PortalAnimation{
+        public Coordinates positsion;
+        public Coordinates dir;
+        public MyColor color;
+        public int state;
+        public int animation_number = 0;
 
+        PortalAnimation(Coordinates _positsion, Coordinates _dir, MyColor _color){
+            positsion = _positsion;
+            dir = _dir;
+            color =_color;
+            state = -1;
+        }
+
+        public Image getImage(){
+            animation_number++;
+            double fieldCanvasSize = ((BaseMapView)(mainView.getBaseMapView())).getCanvasSize();
+
+            if(state == -1) {
+                if(animation_number > 13){
+                    state = 0;
+                }else {
+                    switch (color) {
+                        case BLUE:
+                            return mainView.imageLoader.getImage("openStargate/blue/" + animation_number, fieldCanvasSize, fieldCanvasSize);
+                        case RED:
+                            return mainView.imageLoader.getImage("openStargate/red/" + animation_number, fieldCanvasSize, fieldCanvasSize);
+                        case GREEN:
+                            return mainView.imageLoader.getImage("openStargate/green/" + animation_number, fieldCanvasSize, fieldCanvasSize);
+                        case YELLOW:
+                            return mainView.imageLoader.getImage("openStargate/yellow/" + animation_number, fieldCanvasSize, fieldCanvasSize);
+                    }
+                }
+            }
+
+            if(state == 0){
+                if(animation_number > 5){
+                    animation_number = 1;
+                }
+                switch (color) {
+                    case BLUE:
+                        return mainView.imageLoader.getImage("openedStagegate/blue/" + animation_number, fieldCanvasSize, fieldCanvasSize);
+                    case RED:
+                        return mainView.imageLoader.getImage("openedStagegate/red/" + animation_number, fieldCanvasSize, fieldCanvasSize);
+                    case GREEN:
+                        return mainView.imageLoader.getImage("openedStagegate/green/" + animation_number, fieldCanvasSize, fieldCanvasSize);
+                    case YELLOW:
+                        return mainView.imageLoader.getImage("openedStagegate/yellow/" + animation_number, fieldCanvasSize, fieldCanvasSize);
+                }
+            }
+
+            if(state == 1){
+                if(animation_number > 16) {
+                    return null;
+                }
+                switch (color) {
+                    case BLUE:
+                        return mainView.imageLoader.getImage("closeStagegate/blue/" + animation_number, fieldCanvasSize, fieldCanvasSize);
+                    case RED:
+                        return mainView.imageLoader.getImage("closeStagegate/red/" + animation_number, fieldCanvasSize, fieldCanvasSize);
+                    case GREEN:
+                        return mainView.imageLoader.getImage("closeStagegate/green/" + animation_number, fieldCanvasSize, fieldCanvasSize);
+                    case YELLOW:
+                        return mainView.imageLoader.getImage("closeStagegate/yellow/" + animation_number, fieldCanvasSize, fieldCanvasSize);
+                }
+            }
+
+            return null;
+        }
     }
 }
