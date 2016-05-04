@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
+import model.Portal;
 import utils.Coordinates;
 import utils.MyColor;
 
@@ -59,7 +60,9 @@ public class AnimationView extends Canvas implements IAnimationView {
                 ShootAnimation current = shoots.get(i);
                 gc.setGlobalAlpha(1.0 - 1.0/10.0*((double)current.animation_number)); // 0.5s-ig animal kb
                 current.animation_number++;
-                gc.drawImage(current.leaser,current.drawStartCoordinates.getX()*fieldCanvasSize ,current.drawStartCoordinates.getY()*fieldCanvasSize);
+                gc.drawImage(current.leaser,
+                        current.drawStartCoordinates.getX()*fieldCanvasSize + current.dir.getX()*fieldCanvasSize/2.0,
+                        current.drawStartCoordinates.getY()*fieldCanvasSize + current.dir.getY()*fieldCanvasSize/2.0);
                 if(current.animation_number >= 10){
                     shoots.remove(current);
                     i--;
@@ -74,54 +77,64 @@ public class AnimationView extends Canvas implements IAnimationView {
 
         public Coordinates src;
         public Coordinates dst;
+        public Coordinates dir;
         public Coordinates drawStartCoordinates;
         public int animation_number = 0;
-        public Image leaser;
-        public ShootAnimation(Coordinates _src, Coordinates _dst, MyColor _color){
+        public Image leaser;public ShootAnimation(Coordinates _src, Coordinates _dst, MyColor _color){
             src = _src;
             dst = _dst;
             double fieldCanvasSize = ((BaseMapView)(mainView.getBaseMapView())).getCanvasSize();
             double lenght = Math.sqrt((src.getX()-dst.getX())*(src.getX()-dst.getX()) + (src.getY()-dst.getY())*(src.getY()-dst.getY()));
             ImageView leaserView = null;
 
-            
+
             switch(_color){
                 case BLUE:
-                    leaserView = new ImageView(new Image(getClass().getResource("/resources/leasers/blue_leaser.png").toString(),422,90,true,true));
+                    leaserView = new ImageView(mainView.imageLoader.getImage("leasers/blue_leaser",422,90));
                     break;
                 case RED:
-                    leaserView = new ImageView(new Image(getClass().getResource("/resources/leasers/red_leaser.png").toString(),422,90,true,true));
+                    leaserView = new ImageView(mainView.imageLoader.getImage("leasers/red_leaser",422,90));
                     break;
                 case GREEN:
-                    leaserView = new ImageView(new Image(getClass().getResource("/resources/leasers/green_leaser.png").toString(),422,90,true,true));
+                    leaserView = new ImageView(mainView.imageLoader.getImage("leasers/green_leaser",422,90));
                     break;
                 case YELLOW:
-                    leaserView = new ImageView(new Image(getClass().getResource("/resources/leasers/yellow_leaser.png").toString(),422,90,true,true));
+                    leaserView = new ImageView(mainView.imageLoader.getImage("leasers/yellow_leaser",422,90));
                     break;
             }
 
             leaserView.setFitWidth(fieldCanvasSize*lenght);
             leaserView.setFitHeight(fieldCanvasSize);
-            
+
             drawStartCoordinates = src;
-            
+            dir = new Coordinates(1,0);
             if((src.getX() - dst.getX()) == 0){
                 if((dst.getY() - src.getY()) > 0){
                     leaserView.setRotate(90);
+                    dir = new Coordinates(0,1);
                 }else{
                     leaserView.setRotate(270);
                     drawStartCoordinates = dst;
+                    dir = new Coordinates(0,1);
                 }
             }
             else if((dst.getX() - src.getX()) < 0){
-                    leaserView.setRotate(180);
+                leaserView.setRotate(180);
                 drawStartCoordinates = dst;
+                dir = new Coordinates(1,0);
             }
 
             SnapshotParameters params = new SnapshotParameters();
             params.setFill(Color.TRANSPARENT);
-            
+
             leaser = leaserView.snapshot(params,null);
         }
+
+
+
+    }
+
+    private class PortalAnimation{
+
     }
 }

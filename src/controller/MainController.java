@@ -12,7 +12,7 @@ import java.io.File;
  */
 public class MainController {
     private static MainController instance = null;
-    private IMainView mainView;
+    public IMainView mainView;
     private MainController(){}
 
     public Engine engine;

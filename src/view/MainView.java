@@ -26,7 +26,7 @@ import javafx.stage.Stage;
 public class MainView extends Application implements IMainView{
 
     private Integer defaultWidth = 800;
-    private Integer defaultHeight = 800;
+    private Integer defaultHeight = 810;
     private BorderPane root = new BorderPane();
     private MainController mainController;
     private Group mapGroup = new Group();
@@ -39,9 +39,12 @@ public class MainView extends Application implements IMainView{
     private AnimationView animationView;
     private PlayerView playerView;
 
+    public ImageLoader imageLoader;
+
+    private int mapStyle = 1;
+
     @Override
     public void start(Stage primaryStage) throws Exception{
-        //Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         myStage = primaryStage;
         primaryStage.setTitle("O'Neill ezredes kalandjai");
 
@@ -51,6 +54,7 @@ public class MainView extends Application implements IMainView{
         primaryStage.setHeight(defaultHeight);
         primaryStage.setResizable(false);
 
+        imageLoader= new ImageLoader(mapStyle);
 
         baseMapView = new BaseMapView(this);
         animationView = new AnimationView(this);
@@ -79,8 +83,6 @@ public class MainView extends Application implements IMainView{
 
         animationTimer.start();
     }
-
-
 
 
     public static void main(String[] args) {

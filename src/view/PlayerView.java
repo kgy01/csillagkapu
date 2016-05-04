@@ -23,7 +23,7 @@ public class PlayerView extends Canvas implements IPlayerView {
     private ImageView jaffaImageView;
     private ImageView replicatorImageView;
 
-    private double fieldCanvasSize;
+    private int fieldCanvasSize;
 
     boolean isInited = false;
 
@@ -34,11 +34,13 @@ public class PlayerView extends Canvas implements IPlayerView {
     }
 
     public void init(){
-        fieldCanvasSize = ((BaseMapView)(mainView.getBaseMapView())).getCanvasSize();
+        fieldCanvasSize = (int)((BaseMapView)(mainView.getBaseMapView())).getCanvasSize();
 
-        colonelImageView = new ImageView(new Image(getClass().getResource("/resources/players/colonel1.png").toString(),fieldCanvasSize,fieldCanvasSize,true,true));
-        jaffaImageView = new ImageView(new Image(getClass().getResource("/resources/players/jaffa1.png").toString(),fieldCanvasSize,fieldCanvasSize,true,true));
-        replicatorImageView = new ImageView(new Image(getClass().getResource("/resources/players/replicator1.png").toString(),fieldCanvasSize,fieldCanvasSize,true,true));
+        colonelImageView = new ImageView(mainView.imageLoader.getImage("players/colonel",fieldCanvasSize,fieldCanvasSize));
+        jaffaImageView = new ImageView(mainView.imageLoader.getImage("players/jaffa",fieldCanvasSize,fieldCanvasSize));
+        replicatorImageView = new ImageView(mainView.imageLoader.getImage("players/replicator",fieldCanvasSize,fieldCanvasSize));
+
+        isInited = true;
     }
     @Override
     public void drawJ(Coordinates positsion, Coordinates direction, boolean isBox) {
@@ -64,7 +66,7 @@ public class PlayerView extends Canvas implements IPlayerView {
 
         Image rotatedImage = jaffaImageView.snapshot(params,null);
         if(isBox) {
-            gc.drawImage(new Image(getClass().getResource("/resources/box1.jpg").toString(), fieldCanvasSize / 2.0, fieldCanvasSize / 2.0, true, true),
+            gc.drawImage(mainView.imageLoader.getImage("box",fieldCanvasSize / 2.0, fieldCanvasSize / 2.0),
                     jaffaCd.getX()*fieldCanvasSize + fieldCanvasSize / 4.0 + direction.getX()*fieldCanvasSize/4.0,
                     jaffaCd.getY()*fieldCanvasSize + fieldCanvasSize / 4.0 + direction.getY()*fieldCanvasSize/4.0);
         }
@@ -99,7 +101,7 @@ public class PlayerView extends Canvas implements IPlayerView {
         Image rotatedImage = colonelImageView.snapshot(params,null);
 
         if(isBox) {
-            gc.drawImage(new Image(getClass().getResource("/resources/box1.jpg").toString(), fieldCanvasSize / 2.0, fieldCanvasSize / 2.0, true, true),
+            gc.drawImage(mainView.imageLoader.getImage("box",fieldCanvasSize / 2.0, fieldCanvasSize / 2.0),
                     colonelCd.getX()*fieldCanvasSize + fieldCanvasSize / 4.0 + direction.getX()*fieldCanvasSize/4.0,
                     colonelCd.getY()*fieldCanvasSize + fieldCanvasSize / 4.0 + direction.getY()*fieldCanvasSize/4.0);
         }
