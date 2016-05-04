@@ -200,6 +200,9 @@ public class Field {
 	// ItemObject elt�vol�t�sa
 	public void setItemObject(ItemObject _item) {
 		itemobject = _item;
+		if(MainController.getInstance().baseMapController != null) {
+			MainController.getInstance().baseMapController.fieldItemChange(this);
+		}
 	}
 	
 	// ItemObject elt�vol�t�sa

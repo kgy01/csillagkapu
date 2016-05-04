@@ -101,7 +101,6 @@ public class Player {
 			// A letett doboznak be�ll�tjuk a mez�t
 			//backPack.setField(nextfield);
 			backPack = null;
-			MainController.getInstance().baseMapController.fieldItemChange(nextPos);
 		}
 
     }

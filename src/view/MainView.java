@@ -25,8 +25,8 @@ import javafx.stage.Stage;
 
 public class MainView extends Application implements IMainView{
 
-    private Integer defaultWidth = 800;
-    private Integer defaultHeight = 810;
+    private Integer defaultWidth = 1014;
+    private Integer defaultHeight = 1024;
     private BorderPane root = new BorderPane();
     private MainController mainController;
     private Group mapGroup = new Group();

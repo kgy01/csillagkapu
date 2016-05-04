@@ -66,16 +66,18 @@ public class FieldView implements IFieldView {
                 break;
         }
 
-        switch (itemType){
-            case BOX:
-                gc.drawImage(mainView.imageLoader.getImage("box", width/2.0,height/2.0),width/4.0,height/4.0);
-                break;
-            case ZPM:
-                gc.drawImage(mainView.imageLoader.getImage("zpm", width,height),0,0);
-                break;
-            default:
+        if(itemType != null) {
+            switch (itemType) {
+                case BOX:
+                    gc.drawImage(mainView.imageLoader.getImage("box", width / 2.0, height / 2.0), width / 4.0, height / 4.0);
+                    break;
+                case ZPM:
+                    gc.drawImage(mainView.imageLoader.getImage("zpm", width, height), 0, 0);
+                    break;
+                default:
 
-                break;
+                    break;
+            }
         }
     }
     @Override

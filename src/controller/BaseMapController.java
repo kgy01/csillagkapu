@@ -63,6 +63,24 @@ public class BaseMapController {
         fieldViews[positsion.getX()][positsion.getY()].draw(getItemObjectType(currentItem));
     }
 
+    public void fieldItemChange(Field field){
+        Field[][] fields = MainController.getInstance().engine.getFields();
+        for(int x = 0;  x < fields.length; x++){
+            if (fields[x] != null) {
+                for (int y = 0; y < fields[x].length; y++) {
+                    if(fields[x][y] != null ) {
+                        if (fields[x][y].equals(field)) {
+                            Coordinates positsion = new Coordinates(x, y);
+                            ItemObject currentItem = MainController.getInstance().engine.getField(positsion).getItemObject();
+                            fieldViews[positsion.getX()][positsion.getY()].draw(getItemObjectType(currentItem));
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     //Bányászás
     public LandObjectType getLandObjectType(LandObject obj){
         if(obj == null){

@@ -3,6 +3,7 @@ package model;
 import java.util.Random;
 
 import controller.Engine;
+import controller.MainController;
 import utils.Coordinates;
 
 public class Replicator extends Player {
@@ -82,6 +83,7 @@ public class Replicator extends Player {
     	alive = false;
     	System.out.println("FELT ply:replicator pos:"+ position.toString());
     	engine.getField(position.add(direction)).setLandObject(null);
+		MainController.getInstance().drawAll();
         //throw new ColonelIsDeadException();
     }
 	
