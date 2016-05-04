@@ -1,11 +1,13 @@
 package controller;
 
 import controller.ViewInterfacesAndEnums.IPlayerView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import model.Colonel;
 import model.Replicator;
 import utils.Coordinates;
 
-import java.awt.event.KeyEvent;
+
 
 /**
  * Created by MR.ESSIG on 4/27/2016.
@@ -15,13 +17,6 @@ public class PlayerController {
 
     public PlayerController(IPlayerView _playerView){
         playerView = _playerView;
-        Engine engine = MainController.getInstance().engine;
-        Colonel jaffa = engine.jaffa;
-        Colonel colonel = engine.colonel;
-        Replicator replicator = MainController.getInstance().engine.replicator;
-        playerView.drawJ(jaffa.getPosition(), jaffa.getDirection(), !jaffa.isBackpackEmpty());
-        playerView.drawC(colonel.getPosition(), colonel.getDirection(), !colonel.isBackpackEmpty());
-        playerView.drawR(replicator.getPosition(), replicator.getDirection());
     }
 
     public boolean playerEventHandler(KeyEvent key){
@@ -29,46 +24,43 @@ public class PlayerController {
         Colonel jaffa = engine.jaffa;
         Colonel colonel = engine.colonel;
         if(jaffa != null && colonel != null) {
-            switch (key.getKeyCode()) {
-                case KeyEvent.VK_W:
-                    jaffa.step(Coordinates.UP);
-                    break;
-                case KeyEvent.VK_A:
-                    jaffa.step(Coordinates.LEFT);
-                    break;
-                case KeyEvent.VK_S:
-                    jaffa.step(Coordinates.DOWN);
-                    break;
-                case KeyEvent.VK_D:
-                    jaffa.step(Coordinates.RIGHT);
-                    break;
-                case KeyEvent.VK_G:
-                    jaffa.place();
-                    break;
-                case KeyEvent.VK_T:
-                    jaffa.pick();
-                    break;
-
-
-                case KeyEvent.VK_UP:
-                    colonel.step(Coordinates.UP);
-                    break;
-                case KeyEvent.VK_LEFT:
-                    colonel.step(Coordinates.LEFT);
-                    break;
-                case KeyEvent.VK_DOWN:
-                    colonel.step(Coordinates.DOWN);
-                    break;
-                case KeyEvent.VK_RIGHT:
-                    colonel.step(Coordinates.RIGHT);
-                    break;
-                case KeyEvent.VK_PAGE_DOWN:
-                    colonel.place();
-                    break;
-                case KeyEvent.VK_PAGE_UP:
-                    colonel.pick();
-                    break;
-                default:
+            if(key.getCode().equals(KeyCode.W)) {
+                jaffa.step(Coordinates.UP);
+            }
+             else if(key.getCode().equals(KeyCode.A)) {
+                jaffa.step(Coordinates.LEFT);
+            }
+            else if(key.getCode().equals(KeyCode.S)) {
+                jaffa.step(Coordinates.DOWN);
+            }
+            else if(key.getCode().equals(KeyCode.D)) {
+                jaffa.step(Coordinates.RIGHT);
+            }
+            else if(key.getCode().equals(KeyCode.G)) {
+                jaffa.place();
+            }
+            else if(key.getCode().equals(KeyCode.T)){
+                jaffa.pick();
+            }
+            else if(key.getCode().equals(KeyCode.UP)) {
+                colonel.step(Coordinates.UP);
+            }
+            else if(key.getCode().equals(KeyCode.LEFT)){
+                colonel.step(Coordinates.LEFT);
+            }
+            else if(key.getCode().equals(KeyCode.DOWN)){
+                colonel.step(Coordinates.DOWN);
+            }
+            else if(key.getCode().equals(KeyCode.RIGHT)) {
+                colonel.step(Coordinates.RIGHT);
+            }
+            else if(key.getCode().equals(KeyCode.PAGE_DOWN)) {
+                colonel.place();
+            }
+            else if(key.getCode().equals(KeyCode.PAGE_UP)) {
+                colonel.pick();
+            }
+            else{
                     return false;
             }
             playerView.drawJ(jaffa.getPosition(), jaffa.getDirection(), !jaffa.isBackpackEmpty());

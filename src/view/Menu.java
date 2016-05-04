@@ -73,8 +73,10 @@ public class Menu extends Stage {
             return false;
         }
         MainController.getInstance().setMainView(mainView,file);
+        MainController.getInstance().drawAll();
         hide();
         mainView.getStage().show();
+
         return true;
     }
     public void exit(){

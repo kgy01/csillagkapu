@@ -1,7 +1,10 @@
 package controller;
 import controller.ViewInterfacesAndEnums.IMainView;
+import javafx.scene.input.KeyEvent;
+import model.Colonel;
+import model.Replicator;
 
-import java.awt.event.KeyEvent;
+
 import java.io.File;
 
 /**
@@ -51,6 +54,15 @@ public class MainController {
         playerController = new PlayerController(mainView.getPlayerView());
         animationController = new AnimationController(mainView.getAnimationView());
         baseMapController = new BaseMapController(mainView.getBaseMapView());
+    }
+
+    public void drawAll(){
+        Colonel jaffa = engine.jaffa;
+        Colonel colonel = engine.colonel;
+        Replicator replicator = MainController.getInstance().engine.replicator;
+        mainView.getPlayerView().drawJ(jaffa.getPosition(), jaffa.getDirection(), !jaffa.isBackpackEmpty());
+        mainView.getPlayerView().drawC(colonel.getPosition(), colonel.getDirection(), !colonel.isBackpackEmpty());
+        mainView.getPlayerView().drawR(replicator.getPosition(), replicator.getDirection());
     }
 
 }

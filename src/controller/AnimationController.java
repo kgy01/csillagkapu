@@ -1,11 +1,12 @@
 package controller;
 
 import controller.ViewInterfacesAndEnums.IAnimationView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.KeyCode;
 import model.Colonel;
 import utils.Coordinates;
 import utils.MyColor;
 
-import java.awt.event.KeyEvent;
 
 /**
  * Created by MR.ESSIG on 4/27/2016.
@@ -17,26 +18,22 @@ public class AnimationController {
         animationView = _animationView;
     }
 
-    public boolean animationEventHandler(KeyEvent key){
+    public boolean animationEventHandler(KeyEvent key) {
         Engine engine = MainController.getInstance().engine;
         Colonel jaffa = engine.jaffa;
         Colonel colonel = engine.colonel;
-        switch (key.getKeyCode()){
-            case KeyEvent.VK_F:
-                animationView.shoot(jaffa.getPosition(),jaffa.shoot(MyColor.RED), MyColor.RED);
-                break;
-            case KeyEvent.VK_R:
-                animationView.shoot(jaffa.getPosition(),jaffa.shoot(MyColor.GREEN), MyColor.GREEN);
-                break;
-            case KeyEvent.VK_END:
-                animationView.shoot(colonel.getPosition(),colonel.shoot(MyColor.YELLOW), MyColor.YELLOW);
-                break;
-            case KeyEvent.VK_HOME:
-                animationView.shoot(colonel.getPosition(),colonel.shoot(MyColor.BLUE), MyColor.BLUE);
-                break;
-            default:
-                return false;
+        if (key.getCode().equals(KeyCode.F)) {
+            animationView.shoot(jaffa.getPosition(), jaffa.shoot(MyColor.RED), MyColor.RED);
+        } else if (key.getCode().equals(KeyCode.R)) {
+            animationView.shoot(jaffa.getPosition(), jaffa.shoot(MyColor.GREEN), MyColor.GREEN);
+        } else if (key.getCode().equals(KeyCode.END)) {
+            animationView.shoot(colonel.getPosition(), colonel.shoot(MyColor.YELLOW), MyColor.YELLOW);
+        } else if (key.getCode().equals(KeyCode.HOME)) {
+            animationView.shoot(colonel.getPosition(), colonel.shoot(MyColor.BLUE), MyColor.BLUE);
+        } else {
+            return false;
         }
+        MainController.getInstance().drawAll();
         return true;
     }
 

@@ -10,23 +10,23 @@ public class Replicator extends Player {
 		super(_position, _engine);
 	}
 	
-	// Replicator léptetése
+	// Replicator lï¿½ptetï¿½se
 		public void step(Coordinates _direction) {
 			if (alive) {
 				direction = _direction;
-				// Lépés irányába esõ mezõ referenciájának elkérése
+				// Lï¿½pï¿½s irï¿½nyï¿½ba esï¿½ mezï¿½ referenciï¿½jï¿½nak elkï¿½rï¿½se
 				Field nextfield = engine.getField(position.add(direction));
-				// Sikerült a léptetés
+				// Sikerï¿½lt a lï¿½ptetï¿½s
 				Field currentfield = engine.getField(position);
 				if (nextfield.stepIn(this)) {
 					nextfield = engine.getField(position.add(direction));
-					// Lelépés a jelenlegi mezõrõl
+					// Lelï¿½pï¿½s a jelenlegi mezï¿½rï¿½l
 					currentfield.unsetReplicator();
-					// Új pozíció beállítása
+					// ï¿½j pozï¿½ciï¿½ beï¿½llï¿½tï¿½sa
 					position = position.add(direction);
 					if (alive)
 						nextfield.setReplicator(this);
-					// Logolás
+					// Logolï¿½s
 					System.out.println("OK pos:" + position.toString());
 				}
 				else {
@@ -38,27 +38,27 @@ public class Replicator extends Player {
 			}
 		}
 	
-		// Replicator véletlenszerû léptetése
+		// Replicator vï¿½letlenszerï¿½ lï¿½ptetï¿½se
 				public void step() {
 					if (alive) {
-						// Véletlen irány megadása:
+						// Vï¿½letlen irï¿½ny megadï¿½sa:
 						Random rand = new Random();
 						direction = new Coordinates(rand.nextInt(3)-1,rand.nextInt(3)-1);
 						//System.out.println(_direction.toString());
-						// Lépés irányába esõ mezõ referenciájának elkérése
-						// Lépés irányába esõ mezõ referenciájának elkérése
+						// Lï¿½pï¿½s irï¿½nyï¿½ba esï¿½ mezï¿½ referenciï¿½jï¿½nak elkï¿½rï¿½se
+						// Lï¿½pï¿½s irï¿½nyï¿½ba esï¿½ mezï¿½ referenciï¿½jï¿½nak elkï¿½rï¿½se
 						Field nextfield = engine.getField(position.add(direction));
-						// Sikerült a léptetés
+						// Sikerï¿½lt a lï¿½ptetï¿½s
 						Field currentfield = engine.getField(position);
 						if (nextfield.stepIn(this)) {
 							nextfield = engine.getField(position.add(direction));
-							// Lelépés a jelenlegi mezõrõl
+							// Lelï¿½pï¿½s a jelenlegi mezï¿½rï¿½l
 							currentfield.unsetReplicator();
-							// Új pozíció beállítása
+							// ï¿½j pozï¿½ciï¿½ beï¿½llï¿½tï¿½sa
 							position = position.add(direction);
 							if (alive)
 								nextfield.setReplicator(this);
-							// Logolás
+							// Logolï¿½s
 							System.out.println("OK pos:" + position.toString());
 						}
 						else {
@@ -82,7 +82,6 @@ public class Replicator extends Player {
     	alive = false;
     	System.out.println("FELT ply:replicator pos:"+ position.toString());
     	engine.getField(position.add(direction)).setLandObject(null);
-		position = position.add(direction);
         //throw new ColonelIsDeadException();
     }
 	

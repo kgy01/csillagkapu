@@ -48,6 +48,7 @@ public class Player {
 					nextfield.setPlayer(this);
 				// Logol�s
 				System.out.println("OK pos:" + position.toString() + " dir:" + direction.toStringVerbose());
+				MainController.getInstance().baseMapController.fieldItemChange(position);
 			}
 			else {
 				System.out.println("FAILED");

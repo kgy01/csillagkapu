@@ -7,11 +7,19 @@ import controller.ViewInterfacesAndEnums.IMainView;
 import controller.ViewInterfacesAndEnums.IPlayerView;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 
@@ -48,7 +56,9 @@ public class MainView extends Application implements IMainView{
         animationView = new AnimationView(this);
         playerView = new PlayerView(this);
 
-        mapGroup.getChildren().addAll(baseMapView,animationView,playerView);
+        mapGroup.getChildren().add(baseMapView);
+        mapGroup.getChildren().add(animationView);
+        mapGroup.getChildren().add(playerView);
         root.setCenter(mapGroup);
 
         menu.createMenu();
@@ -59,6 +69,13 @@ public class MainView extends Application implements IMainView{
                 animationView.animate();
             }
         };
+
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                MainController.getInstance().keyBoardEventHandler(event);
+            }
+        });
 
         animationTimer.start();
     }
@@ -88,7 +105,7 @@ public class MainView extends Application implements IMainView{
 
     @Override
     public void gameOver(String winner) {
-
+        int test = 0;
     }
 
     public Stage getStage(){
