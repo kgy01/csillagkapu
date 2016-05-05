@@ -88,10 +88,9 @@ public class PlayerController {
         Replicator replicator = MainController.getInstance().engine.replicator;
         if(replicator.isAlive()) {
             replicator.step();
-            playerView.drawR(replicator.getPosition(), replicator.getDirection());
+            MainController.getInstance().drawAll();
             if(!replicator.isAlive()){
                 MainController.getInstance().baseMapController.fieldChange(replicator.getPosition());
-                playerView.drawR(null,null);
             }
         }
     }

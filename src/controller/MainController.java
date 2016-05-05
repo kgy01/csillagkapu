@@ -3,6 +3,7 @@ import controller.ViewInterfacesAndEnums.IMainView;
 import javafx.scene.input.KeyEvent;
 import model.Colonel;
 import model.Replicator;
+import utils.Coordinates;
 
 
 import java.io.File;
@@ -42,7 +43,7 @@ public class MainController {
     }
 
     public void replicatorStepEventHandler(){
-        playerController.replicatorStepEventHandler();
+        if (playerController != null){playerController.replicatorStepEventHandler();}
     }
 
     public void setMainView(IMainView _mainView, File map){
@@ -60,9 +61,14 @@ public class MainController {
         Colonel jaffa = engine.jaffa;
         Colonel colonel = engine.colonel;
         Replicator replicator = MainController.getInstance().engine.replicator;
+        if(replicator.isAlive())
+            mainView.getPlayerView().drawR(replicator.getPosition(), replicator.getDirection());
+        else{
+            mainView.getPlayerView().drawR(new Coordinates(-1,-1), replicator.getDirection());
+        }
         mainView.getPlayerView().drawJ(jaffa.getPosition(), jaffa.getDirection(), !jaffa.isBackpackEmpty());
         mainView.getPlayerView().drawC(colonel.getPosition(), colonel.getDirection(), !colonel.isBackpackEmpty());
-        mainView.getPlayerView().drawR(replicator.getPosition(), replicator.getDirection());
+
     }
 
 }
