@@ -44,7 +44,12 @@ public class Replicator extends Player {
 					if (alive) {
 						// V�letlen ir�ny megad�sa:
 						Random rand = new Random();
-						direction = new Coordinates(rand.nextInt(3)-1,rand.nextInt(3)-1);
+						int dirX = 0, dirY = 0;
+						while((dirX == 0 && dirY == 0) || (dirX != 0 && dirY != 0)) {
+							dirX = rand.nextInt(3)-1;
+							dirY = rand.nextInt(3)-1;
+						}
+						direction = new Coordinates(dirX,dirY);
 						//System.out.println(_direction.toString());
 						// L�p�s ir�ny�ba es� mez� referenci�j�nak elk�r�se
 						// L�p�s ir�ny�ba es� mez� referenci�j�nak elk�r�se

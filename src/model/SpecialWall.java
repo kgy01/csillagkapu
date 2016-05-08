@@ -9,7 +9,9 @@ public class SpecialWall extends Wall {
 	
 	@Override
 	public boolean hit(Bullet bul){
-		Portal.open(bul);
+		if (field.getItemObject() == null) {
+			Portal.open(bul);
+		}
 		return true;
 	}
 	@Override

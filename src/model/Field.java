@@ -168,16 +168,11 @@ public class Field {
 				return player.hit(bul);
 			}
 			else {
-				if (itemobject != null) {
-					return itemobject.hit(bul);
+				if (landobject != null) {
+					return landobject.hit(bul);
 				}
 				else {
-					if (landobject != null) {
-						return landobject.hit(bul);
-					}
-					else {
-						return false;
-					}
+					return false;
 				}
 			}
 		}
