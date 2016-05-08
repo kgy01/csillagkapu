@@ -58,7 +58,8 @@ public class Scale extends LandObject {
      */
     @Override
     public boolean place(Player _player, ItemObject _item) {
-    	weightItem = _item;
+    	_item.setField(this.field);
+		weightItem = _item;
     	if (_item.getWeight() >= limit) {
     		Door.getDoor(Character.toUpperCase(mychar)).open();
         }

@@ -81,7 +81,7 @@ public class Player {
     
     // T�rgy felv�tele az el�tt�nk lev� mez�r�l
     public void pick() {
-		Coordinates  nextPos =new Coordinates(position.getX() + direction.getX(), position.getY() + direction.getY());
+		Coordinates  nextPos = position.add(direction);
     	Field nextfield = engine.getField(nextPos);
     	if (!nextfield.pick(this)) {
 			System.out.println("FAILED");
@@ -92,15 +92,20 @@ public class Player {
     
     // T�rgy elhelyez�se a j�t�kos el�tt l�v� mez�n
     public void place() {
-		Coordinates  nextPos =new Coordinates(position.getX() + direction.getX(), position.getY() + direction.getY());
+		Coordinates  nextPos = position.add(direction);
     	Field nextfield = engine.getField(nextPos);
-    	if (!nextfield.place(this, backPack)) {
+    	if (isBackpackEmpty()) {
 			System.out.println("FAILED");
     	} else {
-			System.out.println("OK typ:" + backPack.toStringVerbose());
-			// A letett doboznak be�ll�tjuk a mez�t
-			//backPack.setField(nextfield);
-			backPack = null;
+			if (nextfield.place(this, backPack)) {
+				System.out.println("OK typ:" + backPack.toStringVerbose());
+				// A letett doboznak be�ll�tjuk a mez�t
+				//backPack.setField(nextfield);
+				backPack = null;
+			}
+			else {
+				System.out.println("FAILED");
+			}
 		}
 
     }

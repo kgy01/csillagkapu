@@ -67,8 +67,7 @@ public class Field {
 				if (itemobject.place(_player, _item)) {
 					// Ha siker�l a let�tel, akkor �rtes�teni kell a landobjectet.
 					if (landobject != null)
-						if (landobject.place(_player, itemobject))
-							_item.setField(this);
+						landobject.place(_player, itemobject);
 					return true;
 				}
 				return false;
