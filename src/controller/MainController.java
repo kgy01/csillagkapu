@@ -29,16 +29,18 @@ public class MainController {
     }
 
     public void keyBoardEventHandler(KeyEvent key){
-        if(animationController.animationEventHandler(key) || playerController.playerEventHandler(key)){
-                if(!engine.jaffa.isAlive() && engine.colonel.isAlive()){
+        if(engine.jaffa.isAlive() && engine.colonel.isAlive()) {
+            if (animationController.animationEventHandler(key) || playerController.playerEventHandler(key)) {
+                if (!engine.jaffa.isAlive() && engine.colonel.isAlive()) {
                     mainView.gameOver("COLONEL");
                 }
-                if(engine.jaffa.isAlive() && !engine.colonel.isAlive()) {
+                if (engine.jaffa.isAlive() && !engine.colonel.isAlive()) {
                     mainView.gameOver("JAFFA");
                 }
-                if(!engine.jaffa.isAlive() && !engine.colonel.isAlive()) {
+                if (!engine.jaffa.isAlive() && !engine.colonel.isAlive()) {
                     mainView.gameOver("NOBODY");
                 }
+            }
         }
     }
 
@@ -68,7 +70,6 @@ public class MainController {
         }
         mainView.getPlayerView().drawJ(jaffa.getPosition(), jaffa.getDirection(), !jaffa.isBackpackEmpty());
         mainView.getPlayerView().drawC(colonel.getPosition(), colonel.getDirection(), !colonel.isBackpackEmpty());
-
     }
 
 }

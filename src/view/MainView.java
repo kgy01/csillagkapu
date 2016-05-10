@@ -13,6 +13,9 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.effect.BoxBlur;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
@@ -20,6 +23,9 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 
@@ -27,9 +33,11 @@ public class MainView extends Application implements IMainView{
 
     private Integer defaultWidth = 1014;
     private Integer defaultHeight = 1024;
-    private BorderPane root = new BorderPane();
+    private BorderPane gamePane = new BorderPane();
+    private Canvas background = new Canvas(defaultWidth,defaultHeight);
     private MainController mainController;
     private Group mapGroup = new Group();
+    private Group root = new Group();
     private Scene scene;
     private Stage myStage;
     private Menu menu = new Menu(this);
@@ -48,6 +56,11 @@ public class MainView extends Application implements IMainView{
         myStage = primaryStage;
         primaryStage.setTitle("O'Neill ezredes kalandjai");
 
+        root.getChildren().add(background);
+        root.getChildren().add(gamePane);
+
+        background.getGraphicsContext2D().fillRect(0,0,defaultWidth,defaultHeight);
+
         scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setWidth(defaultWidth);
@@ -63,7 +76,7 @@ public class MainView extends Application implements IMainView{
         mapGroup.getChildren().add(baseMapView);
         mapGroup.getChildren().add(animationView);
         mapGroup.getChildren().add(playerView);
-        root.setCenter(mapGroup);
+        gamePane.setCenter(mapGroup);
 
         menu.createMenu();
 
@@ -107,7 +120,22 @@ public class MainView extends Application implements IMainView{
 
     @Override
     public void gameOver(String winner) {
-        int test = 0;
+        GaussianBlur gb= new GaussianBlur(50);
+
+        gamePane.setEffect(gb);
+        BorderPane textpane = new BorderPane();
+        textpane.setMinWidth(defaultWidth);
+        textpane.setMinHeight(defaultWidth);
+
+        Text winnerText = new Text("The Winner is " + winner);
+        winnerText.setFont(Font.font("Showcard Gothic",70));
+
+        winnerText.setFill(Color.GREEN);
+
+        textpane.setCenter(winnerText);
+
+        root.getChildren().add(textpane);
+
     }
 
     public Stage getStage(){

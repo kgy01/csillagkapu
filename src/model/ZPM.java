@@ -1,6 +1,8 @@
 package model;
 
 
+import controller.MainController;
+
 public class ZPM extends ItemObject {
 	
 	//Meg felveheto ZPM modulok szama
@@ -33,7 +35,8 @@ public class ZPM extends ItemObject {
 	public boolean pick(Player _player){
 		_player.addZPM();
 		System.out.println("OK typ:ZPM");
-		zpmCount--;
+		decrementZPM();
+
 		return true;
 	}
 	
@@ -41,7 +44,8 @@ public class ZPM extends ItemObject {
 	@Override
 	public boolean stepIn(Player _player){
 		if (_player.addZPM()) {
-			zpmCount--;
+			decrementZPM();
+
 			System.out.println("ZPM added to " + _player.toStringVerbose());
 		}
 		else {
@@ -58,5 +62,22 @@ public class ZPM extends ItemObject {
 	// ZPM-ek szamanak visszaadasa
 	public static int getZPMCount() {
 		return zpmCount;
+	}
+
+	public static  void decrementZPM(){
+		zpmCount--;
+		if(zpmCount == 0){
+			Colonel jaffa = MainController.getInstance().engine.jaffa;
+			Colonel colonel = MainController.getInstance().engine.colonel;
+
+			if(jaffa.noZPM < colonel.noZPM){
+				jaffa.die();
+			}else if(jaffa.noZPM > colonel.noZPM){
+				colonel.die();
+			}else{
+				jaffa.die();
+				colonel.die();
+			}
+		}
 	}
 }
