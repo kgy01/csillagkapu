@@ -16,12 +16,11 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -31,8 +30,9 @@ import javafx.stage.Stage;
 
 public class MainView extends Application implements IMainView{
 
-    private Integer defaultWidth = 1014;
-    private Integer defaultHeight = 1024;
+    public Integer defaultWidth = 1024;
+    public Integer defaultHeight = 1024;
+    public Integer inventoryPaneHeight = 50;
     private BorderPane gamePane = new BorderPane();
     private Canvas background = new Canvas(defaultWidth,defaultHeight);
     private MainController mainController;
@@ -42,6 +42,10 @@ public class MainView extends Application implements IMainView{
     private Stage myStage;
     private Menu menu = new Menu(this);
     private AnimationTimer animationTimer;
+
+    private BorderPane inventoryPane;
+    private HBox jaffaInventory;
+    private HBox colonelInventory;
 
     private BaseMapView baseMapView;
     private AnimationView animationView;
@@ -79,6 +83,8 @@ public class MainView extends Application implements IMainView{
         gamePane.setCenter(mapGroup);
 
         menu.createMenu();
+
+        inventoryInit();
 
         animationTimer = new AnimationTimer() {
             @Override
@@ -136,6 +142,47 @@ public class MainView extends Application implements IMainView{
 
         root.getChildren().add(textpane);
 
+    }
+
+    public void inventoryInit(){
+        inventoryPane = new BorderPane();
+        inventoryPane.setMaxWidth(defaultWidth-5);
+        inventoryPane.setMaxHeight(inventoryPaneHeight);
+        inventoryPane.setMinHeight(inventoryPaneHeight);
+
+        colonelInventory = new HBox();
+        jaffaInventory = new HBox();
+
+        gamePane.setTop(inventoryPane);
+
+        inventoryPane.setLeft(colonelInventory);
+        inventoryPane.setRight(jaffaInventory);
+
+        Text colonelText = new Text("Colonel:   0X");
+        colonelText.setFont(Font.font("Showcard Gothic",inventoryPaneHeight));
+        colonelText.setFill(Color.BLUE);
+
+        colonelInventory.getChildren().add(colonelText);
+
+        Text jaffaText = new Text("Jaffa:   0X");
+        jaffaText.setFont(Font.font("Showcard Gothic",inventoryPaneHeight));
+        jaffaText.setFill(Color.RED);
+        jaffaInventory.getChildren().add(jaffaText);
+
+        Image zpm = new Image("/resources/mapStyle_1/zpm.png", inventoryPaneHeight, inventoryPaneHeight, true, true);
+
+        Canvas zpmCanvas1 = new Canvas(inventoryPaneHeight,inventoryPaneHeight);
+        zpmCanvas1.getGraphicsContext2D().drawImage(zpm,0,0);
+        Canvas zpmCanvas2 = new Canvas(inventoryPaneHeight,inventoryPaneHeight);
+        zpmCanvas2.getGraphicsContext2D().drawImage(zpm,0,0);
+        colonelInventory.getChildren().add(zpmCanvas1);
+        jaffaInventory.getChildren().add(zpmCanvas2);
+    }
+
+    @Override
+    public void inventoryChange(int colonelZPMs, int jaffaZPMs){
+        ((Text)(colonelInventory.getChildren().get(0))).setText("Colonel:   "+colonelZPMs+"X");
+        ((Text)(jaffaInventory.getChildren().get(0))).setText("Jaffa:   "+jaffaZPMs+"X");
     }
 
     public Stage getStage(){

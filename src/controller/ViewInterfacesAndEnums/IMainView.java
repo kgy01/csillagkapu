@@ -8,4 +8,5 @@ public interface IMainView {
     public IAnimationView getAnimationView();
     public IBaseMapView getBaseMapView();
     public void gameOver(String winner);
+    public void inventoryChange(int colonelZPMs, int jaffaZPMs);
 }

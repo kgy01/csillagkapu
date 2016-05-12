@@ -72,4 +72,7 @@ public class MainController {
         mainView.getPlayerView().drawC(colonel.getPosition(), colonel.getDirection(), !colonel.isBackpackEmpty());
     }
 
+    public void inventoryChange(){
+        mainView.inventoryChange(engine.colonel.getNOZPMs(),engine.jaffa.getNOZPMs());
+    }
 }

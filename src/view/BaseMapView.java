@@ -27,8 +27,8 @@ public class BaseMapView extends GridPane implements IBaseMapView {
     @Override
     public void createCanvasMatrix(int width, int height) {
         matrix = new Canvas[width][height];
-        int maxCanvasW = (int)((mainView.getStage().getWidth())/((double)width));
-        int maxCanvasH = (int)((mainView.getStage().getHeight())/((double)height));
+        int maxCanvasW = (int)(((double)(mainView.defaultWidth))/((double)width));
+        int maxCanvasH = (int)(((double)(mainView.defaultHeight-mainView.inventoryPaneHeight-30))/((double)height));
         int canvasSize = (int)Math.min(maxCanvasH,maxCanvasW);
         for(int y = 0; y < height; y++){
             for(int x = 0; x < width; x++){

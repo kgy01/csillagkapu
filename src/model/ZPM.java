@@ -66,6 +66,7 @@ public class ZPM extends ItemObject {
 
 	public static  void decrementZPM(){
 		zpmCount--;
+		MainController.getInstance().inventoryChange();
 		if(zpmCount == 0){
 			Colonel jaffa = MainController.getInstance().engine.jaffa;
 			Colonel colonel = MainController.getInstance().engine.colonel;

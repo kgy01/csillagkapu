@@ -29,8 +29,8 @@ public class AnimationView extends Canvas implements IAnimationView {
 
     AnimationView(MainView _mainView){
         mainView = _mainView;
-        setWidth(mainView.getStage().getWidth());
-        setHeight(mainView.getStage().getHeight());
+        setWidth(mainView.defaultWidth);
+        setHeight(mainView.defaultHeight-mainView.inventoryPaneHeight);
 
     }
     @Override
