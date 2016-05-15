@@ -45,7 +45,7 @@ public class Menu extends Stage {
         load.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                while(!loadMap());
+                loadMap();
             }
         });
         exit.setOnAction(new EventHandler<ActionEvent>() {
