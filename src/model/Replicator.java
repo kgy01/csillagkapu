@@ -99,4 +99,10 @@ public class Replicator extends Player {
 		System.out.println("DIED ply:replicator");
     	return true;
     }
+	
+	@Override
+	// S�ly lek�rdez�se
+    public int getWeight() {
+    	return 0;
+    }
 }
